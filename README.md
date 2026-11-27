@@ -17,7 +17,11 @@ Glue modules between HR manpower planning and school
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[ssi_hr_manpower_planning_school](ssi_hr_manpower_planning_school/) | 14.0.1.6.1 |  | HR - Manpower Planning - School
 
 [//]: # (end addons)
 
