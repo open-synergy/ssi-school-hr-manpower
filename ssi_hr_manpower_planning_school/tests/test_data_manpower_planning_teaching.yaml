@@ -1,0 +1,311 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create grade type"
+      action: "create"
+      model: "school_grade_type"
+      save_as: "grade_type"
+      values:
+        name: "MPP School Grade Type"
+        code: "/"
+        sequence: 10
+    - step: "Create school"
+      action: "create"
+      model: "school"
+      save_as: "school"
+      values:
+        name: "MPP School Teaching"
+        code: "/"
+        grade_type_id: "REC: grade_type.id"
+    - step: "Create grade X"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_x"
+      values:
+        name: "MPP Grade X"
+        code: "/"
+        sequence: 10
+        type_id: "REC: grade_type.id"
+    - step: "Create grade XI"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_xi"
+      values:
+        name: "MPP Grade XI"
+        code: "/"
+        sequence: 20
+        type_id: "REC: grade_type.id"
+    - step: "Create class X-1"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_1"
+      values:
+        name: "MPP X-1"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-2"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_2"
+      values:
+        name: "MPP X-2"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-3"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_3"
+      values:
+        name: "MPP X-3"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create mathematics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_math"
+      values:
+        name: "MPP Mathematics"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create physics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_physics"
+      values:
+        name: "MPP Physics"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create history taught on grade XI only"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_history"
+      values:
+        name: "MPP History"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_xi.id"
+    - step: "Create department"
+      action: "create"
+      model: "hr.department"
+      save_as: "department"
+      values:
+        name: "MPP Teaching Department"
+    - step: "Create teacher A"
+      action: "create"
+      model: "hr.employee"
+      save_as: "teacher_a"
+      values:
+        name: "MPP Teacher A"
+    - step: "Create teacher B"
+      action: "create"
+      model: "hr.employee"
+      save_as: "teacher_b"
+      values:
+        name: "MPP Teacher B"
+    - step: "Create manpower planning of the school"
+      action: "create"
+      model: "manpower_planning"
+      save_as: "planning"
+      values:
+        department_id: "REC: department.id"
+        school_id: "REC: school.id"
+        date_start: 2026-07-01
+        date_end: 2027-06-30
+
+scenarios:
+  - name: "Teaching - Total classes and weekly hours are computed"
+    steps:
+      - step: "Create a teaching line of three classes with a teacher"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+                - "REC: class_2.id"
+                - "REC: class_3.id"
+          weekly_hours: 4
+          employee_id: "REC: teacher_a.id"
+      - step: "Classes, hours and school are derived and the line is not vacant"
+        action: "assert"
+        target: "line"
+        asserts:
+          total_class:
+            type: "value"
+            expected: 3
+          total_weekly_hours:
+            type: "value"
+            expected: 12
+          is_vacant:
+            type: "value"
+            expected: false
+          school_id:
+            type: "m2o"
+            expected: "REC: school"
+
+  - name: "Teaching - A line without teacher and classes is vacant and empty"
+    steps:
+      - step: "Create a teaching line without teacher and classes"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          weekly_hours: 4
+      - step: "The line is vacant and counts no class"
+        action: "assert"
+        target: "line"
+        asserts:
+          total_class:
+            type: "value"
+            expected: 0
+          total_weekly_hours:
+            type: "value"
+            expected: 0
+          is_vacant:
+            type: "value"
+            expected: true
+
+  - name: "Teaching - A different co-teacher is accepted"
+    steps:
+      - step: "Create a teaching line with teacher A and co-teacher B"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          weekly_hours: 2
+          employee_id: "REC: teacher_a.id"
+          co_employee_id: "REC: teacher_b.id"
+      - step: "The co-teacher is stored"
+        action: "assert"
+        target: "line"
+        asserts:
+          co_employee_id:
+            type: "m2o"
+            expected: "REC: teacher_b"
+
+  - name: "Teaching - Subject not taught on the grade is rejected"
+    steps:
+      - step: "History is not taught on grade X"
+        action: "create"
+        model: "manpower_planning_teaching"
+        expect_error:
+          type: "ValidationError"
+          message_contains: "not applicable to the selected grade"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_history.id"
+          grade_id: "REC: grade_x.id"
+          weekly_hours: 2
+
+  - name: "Teaching - Zero weekly hours are rejected"
+    steps:
+      - step: "Weekly hours of 0 are not allowed"
+        action: "create"
+        model: "manpower_planning_teaching"
+        expect_error:
+          type: "ValidationError"
+          message_contains: "at least 1"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          weekly_hours: 0
+
+  - name: "Teaching - Co-teacher equal to the teacher is rejected"
+    steps:
+      - step: "The co-teacher cannot be the teacher"
+        action: "create"
+        model: "manpower_planning_teaching"
+        expect_error:
+          type: "ValidationError"
+          message_contains: "co-teacher is the same employee"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          weekly_hours: 2
+          employee_id: "REC: teacher_a.id"
+          co_employee_id: "REC: teacher_a.id"
+
+  - name: "Teaching - A class cannot be used twice for the same subject"
+    steps:
+      - step: "First mathematics line takes classes X-1 and X-2"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line_first"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+                - "REC: class_2.id"
+          weekly_hours: 4
+      - step: "Another subject may use the same classes"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line_physics"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_physics.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+                - "REC: class_2.id"
+          weekly_hours: 3
+      - step: "The same subject may take another class"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line_third"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_3.id"
+          weekly_hours: 4
+      - step: "Mathematics cannot take class X-2 a second time"
+        action: "create"
+        model: "manpower_planning_teaching"
+        expect_error:
+          type: "ValidationError"
+          message_contains: "already used by another line"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_2.id"
+          weekly_hours: 4

@@ -1,0 +1,1235 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_hr_manpower_planning_school
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__planning_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__planning_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__planning_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__planning_id
+msgid "# Manpower Planning"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__category__binpres_academic
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__binpres_academic
+msgid "Academic Achievement Coaching"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__academic_term_id
+msgid "Academic Term"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__academic_year_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__academic_year_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_summary__academic_year_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__academic_year_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_view_search
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_search
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_workload_view_search
+#, python-format
+msgid "Academic Year"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_import_teaching_assignment__academic_term_id
+msgid "Academic term (semester) whose teaching assignments are imported."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_import_teaching_assignment__allowed_academic_term_ids
+msgid ""
+"Academic terms that can be selected, following the academic year of the "
+"planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_summary__academic_year_id
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__academic_year_id
+msgid "Academic year of the manpower planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_import_teaching_assignment__academic_year_id
+msgid ""
+"Academic year of the planning. When it is filled, only the academic terms of"
+" that year can be selected."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__academic_year_id
+msgid ""
+"Academic year this manpower planning is made for. Selecting it fills the "
+"planning period."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__active
+msgid "Active"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_manpower_planning_assignment
+msgid "Additional Assignment Plan"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__assignment_ids
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_form
+#, python-format
+msgid "Additional Assignments"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__category__additional
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__additional
+msgid "Additional Duty"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__allowed_academic_term_ids
+msgid "Allowed Academic Terms"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_assignment_type_view_form
+msgid "Assignment"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__assignment_daily_hours
+msgid "Assignment Hours per Day"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__assignment_weekly_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Assignment Hours per Week"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__type_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Assignment Type"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.actions.act_window,name:ssi_hr_manpower_planning_school.manpower_planning_assignment_type_action
+#: model:ir.ui.menu,name:ssi_hr_manpower_planning_school.manpower_planning_assignment_type_menu
+msgid "Assignment Types"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment__position__assistant
+msgid "Assistant Coach"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__school_branch_id
+msgid "Branch of the selected school, copied from the school."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.import_teaching_assignment_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_workload__state__cancel
+msgid "Cancelled"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__category
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__category
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_summary__category
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Category"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__category
+msgid "Category of the assignment type, copied from the type."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__is_vacant
+msgid "Checked automatically when no employee is selected."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__is_vacant
+msgid "Checked automatically when no teacher is selected."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__is_teacher
+msgid ""
+"Checked when the employee has at least one teaching line in the planning, as"
+" teacher or as co-teacher."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__grade_class_ids
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Classes"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__grade_class_ids
+msgid ""
+"Classes of the grade that are taught. A class can be used by only one line "
+"of the same subject in a planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__co_employee_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Co-Teacher"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__co_teaching_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Co-Teaching Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__co_teaching_count
+msgid "Co-Teaching Lines"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment__position__coach
+msgid "Coach"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__code
+msgid "Code"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__company_id
+msgid "Company"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__company_id
+msgid "Company of the manpower planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__create_uid
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__create_uid
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__create_uid
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__create_date
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__create_date
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__create_date
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__curriculum_id
+msgid "Curriculum"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__date_end
+msgid "Date End"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__date_start
+msgid "Date Start"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__default_hours
+msgid "Default Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_summary__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_report_ssi_hr_manpower_planning_manpower_planning_summary__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_school__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_workload__state__done
+msgid "Done"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_workload__state__draft
+msgid "Draft"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__employee_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__employee_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_workload_view_search
+#, python-format
+msgid "Employee"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__employee_id
+msgid ""
+"Employee the workload is recapped for. Empty on the row that gathers the "
+"vacant lines of the planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__co_employee_id
+msgid ""
+"Employee who assists the teacher. It must be a different employee than the "
+"teacher."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__employee_id
+msgid ""
+"Employee who holds the assignment. Leave empty when the line is vacant."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__employee_id
+msgid "Employee who teaches. Leave empty when the line is vacant."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__excess_weekly_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Excess Weekly Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__category__extracurricular
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__extracurricular
+msgid "Extracurricular Coach"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Filled"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Filled (%)"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__date_start
+msgid "First day of the assignment. Optional."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__notes
+msgid "Free-form remarks about this assignment line."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__notes
+msgid "Free-form remarks about this teaching line."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_form
+msgid "Generate from Curriculum"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__grade_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Grade"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__grade_id
+msgid "Grade the subject is taught on."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__hour_basis
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__hour_basis
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Hour Basis"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__hour_basis
+msgid "Hour basis of the assignment type, copied from the type."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__default_hours
+msgid ""
+"Hours copied to a new assignment line of this type. The line hours can still"
+" be changed."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__assignment_daily_hours
+msgid "Hours of the additional assignments counted per day."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__assignment_weekly_hours
+msgid "Hours of the additional assignments counted per week."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__hours
+msgid ""
+"Hours of the assignment, counted per week or per day following the hour "
+"basis. Filled with the default hours of the type and can be changed."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_summary__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_report_ssi_hr_manpower_planning_manpower_planning_summary__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_school__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_needaction
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.import_teaching_assignment_view_form
+msgid "Import"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_import_teaching_assignment
+msgid "Import Teaching Lines from Teaching Assignment"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_form
+msgid "Import from Teaching Assignment"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__is_teacher
+msgid "Is Teacher"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__job_id
+msgid "Job Position"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__job_id
+msgid "Job position this assignment type is usually given to. Optional."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__category
+msgid ""
+"Kind of assignment this type stands for. It decides how the assignment line "
+"is grouped and which fields it shows."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__lack_weekly_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Lacking Weekly Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_summary____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_report_ssi_hr_manpower_planning_manpower_planning_summary____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_school____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__write_uid
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__write_uid
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__write_uid
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_import_teaching_assignment__write_date
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__write_date
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__write_date
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__date_end
+msgid "Last day of the assignment. Optional."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__weekly_hours
+msgid "Lesson hours per week taught in each class. It must be at least 1."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__teaching_assignment_line_ids
+msgid ""
+"Lines of the school teaching assignment this plan line was imported from. "
+"Optional; the line stays a plan that can be edited."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__mandatory_weekly_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Mandatory Weekly Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__lack_weekly_hours
+msgid ""
+"Mandatory weekly hours minus the total weekly hours, when positive. It is "
+"zero for an employee who does not teach, and when the school has no "
+"mandatory weekly hours."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_manpower_planning
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_workload_view_search
+msgid "Manpower Planning"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_manpower_planning_assignment_type
+#: model:res.groups,name:ssi_hr_manpower_planning_school.manpower_planning_assignment_type_group
+msgid "Manpower Planning Assignment Type"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_manpower_planning_summary
+msgid "Manpower Planning Summary"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_report_ssi_hr_manpower_planning_manpower_planning_summary
+msgid "Manpower Planning Summary Report"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx
+msgid "Manpower Planning Summary XLSX Report"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_manpower_planning_workload
+msgid "Manpower Planning Workload"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.actions.act_window,name:ssi_hr_manpower_planning_school.manpower_planning_workload_action
+#: model:ir.ui.menu,name:ssi_hr_manpower_planning_school.manpower_planning_workload_menu
+msgid "Manpower Workload"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__planning_id
+msgid "Manpower planning document that owns this assignment line."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__planning_id
+msgid "Manpower planning document that owns this teaching line."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__planning_id
+msgid "Manpower planning document the workload belongs to."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_import_teaching_assignment__planning_id
+msgid "Manpower planning that receives the imported teaching lines."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__active
+msgid ""
+"Master data status\n"
+"\n"
+"* Inactive data can not be selected when creating new transaction\n"
+"* Transaction with inactive master data can still be viewed\n"
+"* Set master data as inactive if master data no longger needed,\n"
+"but master data already used on transaction"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__code
+msgid ""
+"Master data unique identifier.\n"
+"\n"
+"* Fill with '/' if You do not need unique identifier\n"
+"* Click 'Generate Code' button to automatically assign code.\n"
+"  Sequence template mush be set to perform this action\n"
+"  Only master data with '/' code will be assign automatic code"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__name
+msgid "Name"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Needed"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__category__binpres_non_academic
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__binpres_non_academic
+msgid "Non-Academic Achievement Coaching"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__category__non_teacher
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__non_teacher
+msgid "Non-Teacher"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__note
+msgid "Note"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__notes
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__notes
+msgid "Notes"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__class_count
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Number of Classes"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__class_count
+msgid ""
+"Number of classes handled by the coaching or the extracurricular activity."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__total_class
+msgid "Number of classes selected on this line."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__co_teaching_count
+msgid "Number of teaching lines the employee assists as co-teacher."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_workload__state__open
+msgid "On Progress"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__hour_basis__day
+msgid "Per Day"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__hour_basis__week
+msgid "Per Week"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__hour_basis
+msgid ""
+"Period the hours of an assignment line of this type are counted in: per week"
+" or per day (for example a picket duty)."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__category__picket
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__picket
+msgid "Picket"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_school__manpower_picket_weekly_hours_per_day
+msgid "Picket Hours per Day"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__picket_weekly_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Picket Hours per Week"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__picket_weekly_hours
+msgid ""
+"Picket hours counted per day, multiplied by the picket hours per day of the "
+"school of the planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__position
+msgid "Position"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_workload__state__reject
+msgid "Rejected"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__user_id
+msgid "Responsible"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__position
+msgid ""
+"Role in the activity. Used by the coaching and extracurricular categories "
+"only."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#, python-format
+msgid "SCHOOL RECAP"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__school_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_summary__school_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__school_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__school_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_view_search
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_search
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_workload_view_search
+#, python-format
+msgid "School"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__school_branch_id
+msgid "School Branch"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "School Recap"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__curriculum_id
+msgid ""
+"School curriculum this manpower planning follows. It is filled with the open"
+" curriculum of the school and can be emptied. Optional."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__school_id
+msgid "School of the manpower planning, copied from the header."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_summary__school_id
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__school_id
+msgid "School of the manpower planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__school_id
+msgid "School unit this manpower planning is made for. Optional."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_summary__category
+msgid "Source of the manpower lines the summary row is built from."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__state
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_workload_view_search
+msgid "State"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__state
+msgid "State of the manpower planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_assignment_type__category__structural
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__structural
+msgid "Structural"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__assignment_ids
+msgid ""
+"Structural, additional duty, non-teacher, picket, coaching and "
+"extracurricular coach assignments."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__subject_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Subject"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__subject_id
+msgid "Subject that is taught. It must be applicable to the grade."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__employee_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Teacher"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__mandatory_weekly_hours
+msgid ""
+"Teacher mandatory weekly hours of the school of the planning. It is zero for"
+" an employee who does not teach."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_summary__category__teaching
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_form
+#, python-format
+msgid "Teaching"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__teaching_assignment_line_ids
+msgid "Teaching Assignment Lines"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model,name:ssi_hr_manpower_planning_school.model_manpower_planning_teaching
+msgid "Teaching Assignment Plan"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__teaching_ids
+msgid "Teaching Assignments"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__teaching_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Teaching Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__workload_ids
+msgid "Teaching and additional hours recap per employee."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__teaching_ids
+msgid "Teaching assignment plan per subject, grade and class."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__total_weekly_hours
+msgid ""
+"Teaching hours plus the co-teaching hours plus the additional assignment "
+"hours counted per week plus the picket hours per week."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_form
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_workload_view_tree
+msgid "Total"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__total_class
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Total Classes"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__total_weekly_hours
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_workload__total_weekly_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Total Weekly Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__excess_weekly_hours
+msgid ""
+"Total weekly hours minus the mandatory weekly hours, when positive. It is "
+"zero for an employee who does not teach, and when the school has no "
+"mandatory weekly hours."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__type_id
+msgid ""
+"Type of the assignment. It gives the category, the hour basis and the "
+"default hours."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__user_id
+msgid "User responsible for the manpower planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary.py:0
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment__is_vacant
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__is_vacant
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Vacant"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Vacant (%)"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_workload__state__confirm
+msgid "Waiting for Approval"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_assignment_type__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__weekly_hours
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#, python-format
+msgid "Weekly Hours per Class"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__co_teaching_hours
+msgid ""
+"Weekly hours of the teaching lines the employee assists as co-teacher, "
+"multiplied by the co-teaching hour factor of the school of the planning."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_workload__teaching_hours
+msgid "Weekly hours of the teaching lines the employee teaches."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning_teaching__total_weekly_hours
+msgid "Weekly hours per class multiplied by the number of classes."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_school__manpower_picket_weekly_hours_per_day
+msgid ""
+"Weekly lesson hours counted for each picket day. The manpower planning "
+"workload multiplies the picket days of an employee by this value."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: code:addons/ssi_hr_manpower_planning_school/reports/report_ssi_hr_manpower_planning_manpower_planning_summary_xlsx.py:0
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_view_form
+#, python-format
+msgid "Workload"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__workload_ids
+msgid "Workloads"
+msgstr ""

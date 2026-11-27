@@ -1,0 +1,357 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create grade type"
+      action: "create"
+      model: "school_grade_type"
+      save_as: "grade_type"
+      values:
+        name: "MPP School Context Grade Type"
+        code: "/"
+        sequence: 10
+    - step: "Create branch"
+      action: "create"
+      model: "school_branch"
+      save_as: "branch"
+      values:
+        name: "MPP School Context Branch"
+        code: "/"
+    - step: "Create school of the branch"
+      action: "create"
+      model: "school"
+      save_as: "school"
+      values:
+        name: "MPP School Context"
+        code: "/"
+        grade_type_id: "REC: grade_type.id"
+        branch_id: "REC: branch.id"
+    - step: "Create school without any curriculum"
+      action: "create"
+      model: "school"
+      save_as: "school_empty"
+      values:
+        name: "MPP School Without Curriculum"
+        code: "/"
+        grade_type_id: "REC: grade_type.id"
+    - step: "Create academic year"
+      action: "create"
+      model: "school_academic_year"
+      save_as: "year"
+      values:
+        name: "MPP 2026/2027 Context"
+        code: "/"
+        date_start: "2026-07-01"
+        date_end: "2027-06-30"
+    - step: "Create grade X"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_x"
+      values:
+        name: "MPP Context Grade X"
+        code: "/"
+        sequence: 10
+        type_id: "REC: grade_type.id"
+    - step: "Create grade XI"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_xi"
+      values:
+        name: "MPP Context Grade XI"
+        code: "/"
+        sequence: 20
+        type_id: "REC: grade_type.id"
+    - step: "Create class X-1 of the school"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_1"
+      values:
+        name: "MPP Context X-1"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-2 of the school"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_2"
+      values:
+        name: "MPP Context X-2"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create a class X-1 of the school without curriculum"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_empty"
+      values:
+        name: "MPP Context Empty X-1"
+        code: "/"
+        school_id: "REC: school_empty.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create mathematics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_math"
+      values:
+        name: "MPP Context Mathematics"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create history taught on grade XI only"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_history"
+      values:
+        name: "MPP Context History"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_xi.id"
+    - step: "Create department"
+      action: "create"
+      model: "hr.department"
+      save_as: "department"
+      values:
+        name: "MPP School Context Department"
+    - step: "Create the draft curriculum of the school"
+      action: "create"
+      model: "school_curriculum"
+      save_as: "curriculum"
+      values:
+        title: "MPP Context Curriculum"
+        school_id: "REC: school.id"
+        academic_year_id: "REC: year.id"
+        effective_start: 2026-07-01
+        effective_end: 2027-06-30
+        user_id: "REF: base.user_admin"
+    - step: "Curriculum line of mathematics on grade X, 4 hours"
+      action: "create"
+      model: "school_curriculum_line"
+      save_as: "curriculum_line_math"
+      values:
+        curriculum_id: "REC: curriculum.id"
+        subject_id: "REC: subject_math.id"
+        grade_id: "REC: grade_x.id"
+        weekly_hours: 4
+        total_class: 2
+    - step: "Curriculum line of history on grade XI, a grade without class"
+      action: "create"
+      model: "school_curriculum_line"
+      save_as: "curriculum_line_history"
+      values:
+        curriculum_id: "REC: curriculum.id"
+        subject_id: "REC: subject_history.id"
+        grade_id: "REC: grade_xi.id"
+        weekly_hours: 3
+        total_class: 1
+    - step: "Confirm the curriculum"
+      action: "call"
+      target: "curriculum"
+      method: "action_confirm"
+      as_user: "base.user_admin"
+      refresh: true
+      asserts:
+        state:
+          type: "value"
+          expected: "confirm"
+    - step: "Approve the curriculum, which opens it"
+      action: "call"
+      target: "curriculum"
+      method: "action_approve_approval"
+      as_user: "base.user_admin"
+      refresh: true
+      asserts:
+        state:
+          type: "value"
+          expected: "open"
+
+scenarios:
+  - name: "Generate Teaching - A line per curriculum line with classes and no teacher"
+    steps:
+      - step: "Create a draft planning that follows the curriculum"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: department.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          school_id: "REC: school.id"
+          academic_year_id: "REC: year.id"
+          curriculum_id: "REC: curriculum.id"
+      - step: "Generate the teaching lines from the curriculum"
+        action: "call"
+        target: "planning"
+        method: "action_generate_teaching_from_curriculum"
+      - step: "Only the grade with classes in the school gets a line"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+        save_as: "lines"
+        expect_count: 1
+      - step: "The line has both classes, 4 hours and no teacher"
+        action: "assert"
+        target: "lines"
+        asserts:
+          subject_id:
+            type: "m2o"
+            expected: "REC: subject_math"
+          grade_id:
+            type: "m2o"
+            expected: "REC: grade_x"
+          weekly_hours:
+            type: "value"
+            expected: 4
+          total_class:
+            type: "value"
+            expected: 2
+          total_weekly_hours:
+            type: "value"
+            expected: 8
+          is_vacant:
+            type: "value"
+            expected: true
+          employee_id:
+            type: "value"
+            operator: "is_falsy"
+          grade_class_ids:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: class_1"
+              - "REC: class_2"
+
+  - name: "Generate Teaching - Generating again adds nothing"
+    steps:
+      - step: "Create a draft planning that follows the curriculum"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: department.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          school_id: "REC: school.id"
+          curriculum_id: "REC: curriculum.id"
+      - step: "Generate the teaching lines the first time"
+        action: "call"
+        target: "planning"
+        method: "action_generate_teaching_from_curriculum"
+      - step: "Generate the teaching lines the second time"
+        action: "call"
+        target: "planning"
+        method: "action_generate_teaching_from_curriculum"
+      - step: "Still one line"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+        save_as: "lines"
+        expect_count: 1
+
+  - name: "Generate Teaching - A subject and grade that has a line is skipped"
+    steps:
+      - step: "Create a teacher"
+        action: "create"
+        model: "hr.employee"
+        save_as: "teacher"
+        values:
+          name: "MPP Generate Teacher"
+      - step: "Create a draft planning with a mathematics line of one class"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: department.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          school_id: "REC: school.id"
+          curriculum_id: "REC: curriculum.id"
+          teaching_ids:
+            - - 0
+              - 0
+              - subject_id: "REC: subject_math.id"
+                grade_id: "REC: grade_x.id"
+                weekly_hours: 2
+                employee_id: "REC: teacher.id"
+                grade_class_ids:
+                  - - 6
+                    - 0
+                    - - "REC: class_1.id"
+      - step: "Generate the teaching lines from the curriculum"
+        action: "call"
+        target: "planning"
+        method: "action_generate_teaching_from_curriculum"
+      - step: "The existing line is the only line"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+        save_as: "lines"
+        expect_count: 1
+      - step: "The existing line is not changed"
+        action: "assert"
+        target: "lines"
+        asserts:
+          weekly_hours:
+            type: "value"
+            expected: 2
+          total_class:
+            type: "value"
+            expected: 1
+          employee_id:
+            type: "m2o"
+            expected: "REC: teacher"
+
+  - name: "Generate Teaching - Refused when the planning is not a draft"
+    steps:
+      - step: "Create a draft planning that follows the curriculum"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: department.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          school_id: "REC: school.id"
+          curriculum_id: "REC: curriculum.id"
+      - step: "Confirm the planning"
+        action: "call"
+        target: "planning"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+      - step: "Generating is refused outside draft"
+        action: "call"
+        target: "planning"
+        method: "action_generate_teaching_from_curriculum"
+        expect_error:
+          type: "UserError"
+          message_contains: "not in draft or has no curriculum"
+
+  - name: "Generate Teaching - Refused when the planning has no curriculum"
+    steps:
+      - step: "Create a draft planning without curriculum"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: department.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          school_id: "REC: school.id"
+      - step: "Generating is refused without a curriculum"
+        action: "call"
+        target: "planning"
+        method: "action_generate_teaching_from_curriculum"
+        expect_error:
+          type: "UserError"
+          message_contains: "not in draft or has no curriculum"

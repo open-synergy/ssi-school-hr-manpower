@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="manpower_planning_workload_internal_user_rule" model="ir.rule">
+    <field name="name">Manpower Planning Workload - Internal Users</field>
+    <field name="model_id" ref="model_manpower_planning_workload" />
+    <field name="groups" eval="[(4, ref('base.group_user'))]" />
+    <field name="domain_force">[('user_id','=',user.id)]</field>
+    <field name="perm_read" eval="1" />
+    <field name="perm_write" eval="0" />
+    <field name="perm_create" eval="0" />
+    <field name="perm_unlink" eval="0" />
+</record>
+
+<record id="manpower_planning_workload_company_rule" model="ir.rule">
+    <field name="name">Manpower Planning Workload - Responsible to company data</field>
+    <field name="model_id" ref="model_manpower_planning_workload" />
+    <field
+            name="groups"
+            eval="[(4, ref('ssi_hr_manpower_planning.manpower_planning_company_group'))]"
+        />
+    <field name="domain_force">[('company_id','=',user.company_id.id)]</field>
+    <field name="perm_read" eval="1" />
+    <field name="perm_write" eval="0" />
+    <field name="perm_create" eval="0" />
+    <field name="perm_unlink" eval="0" />
+</record>
+
+<record id="manpower_planning_workload_companies_rule" model="ir.rule">
+    <field
+            name="name"
+        >Manpower Planning Workload - Responsible to company and all child companies data</field>
+    <field name="model_id" ref="model_manpower_planning_workload" />
+    <field
+            name="groups"
+            eval="[(4, ref('ssi_hr_manpower_planning.manpower_planning_company_child_group'))]"
+        />
+    <field name="domain_force">[('company_id','in',user.company_ids.ids)]</field>
+    <field name="perm_read" eval="1" />
+    <field name="perm_write" eval="0" />
+    <field name="perm_create" eval="0" />
+    <field name="perm_unlink" eval="0" />
+</record>
+
+<record id="manpower_planning_workload_all_rule" model="ir.rule">
+    <field name="name">Manpower Planning Workload - Responsible to all data</field>
+    <field name="model_id" ref="model_manpower_planning_workload" />
+    <field
+            name="groups"
+            eval="[(4, ref('ssi_hr_manpower_planning.manpower_planning_all_group'))]"
+        />
+    <field name="domain_force">[(1,'=',1)]</field>
+    <field name="perm_read" eval="1" />
+    <field name="perm_write" eval="0" />
+    <field name="perm_create" eval="0" />
+    <field name="perm_unlink" eval="0" />
+</record>
+
+</odoo>

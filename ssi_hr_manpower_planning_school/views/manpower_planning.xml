@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="manpower_planning_view_search" model="ir.ui.view">
+    <field name="name">manpower_planning - search (school)</field>
+    <field name="model">manpower_planning</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning.manpower_planning_view_search"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="school_id" />
+                <field name="academic_year_id" />
+            </xpath>
+            <xpath expr="//filter[@name='grp_department']" position="before">
+                <filter
+                        name="grp_school"
+                        string="School"
+                        context="{'group_by':'school_id'}"
+                    />
+                <filter
+                        name="grp_academic_year"
+                        string="Academic Year"
+                        context="{'group_by':'academic_year_id'}"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_view_tree" model="ir.ui.view">
+    <field name="name">manpower_planning - tree (school)</field>
+    <field name="model">manpower_planning</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning.manpower_planning_view_tree"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="school_id" optional="hide" />
+                <field name="academic_year_id" optional="hide" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_view_form" model="ir.ui.view">
+    <field name="name">manpower_planning - form (school)</field>
+    <field name="model">manpower_planning</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning.manpower_planning_view_form"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button
+                        name="action_import_teaching_assignment"
+                        type="object"
+                        string="Import from Teaching Assignment"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('school_id', '=', False)]}"
+                    />
+                <button
+                        name="action_generate_teaching_from_curriculum"
+                        type="object"
+                        string="Generate from Curriculum"
+                        class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('curriculum_id', '=', False)]}"
+                    />
+            </xpath>
+            <xpath expr="//page[@name='summary']" position="after">
+                <page name="school" string="School">
+                    <group name="school_group_1" colspan="4" col="2">
+                        <field name="school_id" options="{'no_create': True}" />
+                        <field name="school_branch_id" />
+                        <field name="academic_year_id" options="{'no_create': True}" />
+                        <field
+                                name="curriculum_id"
+                                options="{'no_create': True}"
+                                domain="[('school_id', '=', school_id), ('state', '=', 'open')]"
+                            />
+                    </group>
+                </page>
+                <page name="teaching" string="Teaching">
+                    <field name="teaching_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="subject_id" options="{'no_create': True}" />
+                            <field name="grade_id" options="{'no_create': True}" />
+                            <field
+                                    name="grade_class_ids"
+                                    widget="many2many_tags"
+                                    options="{'no_create': True}"
+                                    domain="[('school_id', '=', parent.school_id), ('grade_id', '=', grade_id)]"
+                                />
+                            <field name="weekly_hours" />
+                            <field name="total_class" />
+                            <field name="total_weekly_hours" sum="Total" />
+                            <field name="employee_id" options="{'no_create': True}" />
+                            <field
+                                    name="co_employee_id"
+                                    options="{'no_create': True}"
+                                />
+                            <field name="is_vacant" optional="hide" />
+                            <field name="notes" optional="hide" />
+                            <field
+                                    name="teaching_assignment_line_ids"
+                                    widget="many2many_tags"
+                                    options="{'no_create': True}"
+                                />
+                        </tree>
+                        <form>
+                            <group name="teaching_group_1">
+                                <field name="subject_id" />
+                                <field name="grade_id" />
+                                <field
+                                        name="grade_class_ids"
+                                        widget="many2many_tags"
+                                        domain="[('school_id', '=', parent.school_id), ('grade_id', '=', grade_id)]"
+                                    />
+                                <field name="weekly_hours" />
+                                <field name="total_class" />
+                                <field name="total_weekly_hours" />
+                                <field name="employee_id" />
+                                <field name="co_employee_id" />
+                                <field name="is_vacant" />
+                                <field
+                                        name="teaching_assignment_line_ids"
+                                        widget="many2many_tags"
+                                        options="{'no_create': True}"
+                                    />
+                                <field name="notes" />
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page name="assignment" string="Additional Assignments">
+                    <field name="assignment_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="type_id" options="{'no_create': True}" />
+                            <field name="category" />
+                            <field name="hour_basis" />
+                            <field name="employee_id" options="{'no_create': True}" />
+                            <field
+                                    name="position"
+                                    attrs="{'invisible': [('category', 'not in', ['binpres_academic', 'binpres_non_academic', 'extracurricular'])]}"
+                                />
+                            <field name="hours" />
+                            <field
+                                    name="class_count"
+                                    attrs="{'invisible': [('category', 'not in', ['binpres_academic', 'binpres_non_academic', 'extracurricular'])]}"
+                                />
+                            <field name="date_start" optional="hide" />
+                            <field name="date_end" optional="hide" />
+                            <field name="is_vacant" optional="hide" />
+                            <field name="notes" optional="hide" />
+                        </tree>
+                        <form>
+                            <group name="assignment_group_1">
+                                <field name="type_id" />
+                                <field name="category" />
+                                <field name="hour_basis" />
+                                <field name="employee_id" />
+                                <field
+                                        name="position"
+                                        attrs="{'invisible': [('category', 'not in', ['binpres_academic', 'binpres_non_academic', 'extracurricular'])]}"
+                                    />
+                                <field name="hours" />
+                                <field
+                                        name="class_count"
+                                        attrs="{'invisible': [('category', 'not in', ['binpres_academic', 'binpres_non_academic', 'extracurricular'])]}"
+                                    />
+                                <field name="date_start" />
+                                <field name="date_end" />
+                                <field name="is_vacant" />
+                                <field name="notes" />
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page name="workload" string="Workload">
+                    <field name="workload_ids" nolabel="1">
+                        <tree>
+                            <field name="employee_id" />
+                            <field name="teaching_hours" sum="Total" />
+                            <field name="co_teaching_count" sum="Total" />
+                            <field name="co_teaching_hours" sum="Total" />
+                            <field name="assignment_weekly_hours" sum="Total" />
+                            <field name="assignment_daily_hours" sum="Total" />
+                            <field name="picket_weekly_hours" sum="Total" />
+                            <field name="total_weekly_hours" sum="Total" />
+                            <field name="is_teacher" />
+                            <field name="mandatory_weekly_hours" />
+                            <field name="lack_weekly_hours" sum="Total" />
+                            <field name="excess_weekly_hours" sum="Total" />
+                        </tree>
+                        <form>
+                            <group name="workload_group_1">
+                                <field name="employee_id" />
+                                <field name="teaching_hours" />
+                                <field name="co_teaching_count" />
+                                <field name="co_teaching_hours" />
+                                <field name="assignment_weekly_hours" />
+                                <field name="assignment_daily_hours" />
+                                <field name="picket_weekly_hours" />
+                                <field name="total_weekly_hours" />
+                                <field name="is_teacher" />
+                                <field name="mandatory_weekly_hours" />
+                                <field name="lack_weekly_hours" />
+                                <field name="excess_weekly_hours" />
+                            </group>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+</odoo>

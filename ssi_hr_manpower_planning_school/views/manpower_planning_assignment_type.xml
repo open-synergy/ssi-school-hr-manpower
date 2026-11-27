@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="manpower_planning_assignment_type_view_search" model="ir.ui.view">
+    <field name="name">manpower_planning_assignment_type - search</field>
+    <field name="model">manpower_planning_assignment_type</field>
+    <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="category" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_assignment_type_view_tree" model="ir.ui.view">
+    <field name="name">manpower_planning_assignment_type - tree</field>
+    <field name="model">manpower_planning_assignment_type</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_tree" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="category" />
+                <field name="hour_basis" />
+                <field name="default_hours" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_assignment_type_view_form" model="ir.ui.view">
+    <field name="name">manpower_planning_assignment_type - form</field>
+    <field name="model">manpower_planning_assignment_type</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_form" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//notebook/page[@name='note']" position="before">
+                <page name="assignment" string="Assignment">
+                    <group name="assignment_group_1">
+                        <field name="category" />
+                        <field name="hour_basis" />
+                        <field name="default_hours" />
+                        <field name="job_id" options="{'no_create': True}" />
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_assignment_type_action" model="ir.actions.act_window">
+    <field name="name">Assignment Types</field>
+    <field name="res_model">manpower_planning_assignment_type</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="manpower_planning_assignment_type_menu"
+        name="Assignment Types"
+        parent="ssi_hr_manpower_planning.manpower_planning_configuration_menu"
+        action="manpower_planning_assignment_type_action"
+        groups="manpower_planning_assignment_type_group"
+        sequence="30"
+    />
+</odoo>

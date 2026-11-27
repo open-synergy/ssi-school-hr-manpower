@@ -1,0 +1,784 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create grade type"
+      action: "create"
+      model: "school_grade_type"
+      save_as: "grade_type"
+      values:
+        name: "MPPI Grade Type"
+        code: "EVAL: 'MPPIGT%d' % env['school_grade_type'].search_count([])"
+        sequence: 10
+    - step: "Create the school of the planning"
+      action: "create"
+      model: "school"
+      save_as: "school"
+      values:
+        name: "MPPI School"
+        code: "EVAL: 'MPPISC%d' % env['school'].search_count([])"
+        grade_type_id: "REC: grade_type.id"
+    - step: "Create another school"
+      action: "create"
+      model: "school"
+      save_as: "school_other"
+      values:
+        name: "MPPI Other School"
+        code: "EVAL: 'MPPISC%d' % env['school'].search_count([])"
+        grade_type_id: "REC: grade_type.id"
+    - step: "Create academic year"
+      action: "create"
+      model: "school_academic_year"
+      save_as: "year"
+      values:
+        name: "MPPI Year"
+        code: "EVAL: 'MPPIAY%d' % env['school_academic_year'].search_count([])"
+        date_start: 2026-07-01
+        date_end: 2027-06-30
+    - step: "Create the first term"
+      action: "create"
+      model: "school_academic_term"
+      save_as: "term_1"
+      values:
+        name: "MPPI Term 1"
+        code: "EVAL: 'MPPITM%d' % env['school_academic_term'].search_count([])"
+        date_start: 2026-07-01
+        date_end: 2026-12-31
+        year_id: "REC: year.id"
+    - step: "Create the second term"
+      action: "create"
+      model: "school_academic_term"
+      save_as: "term_2"
+      values:
+        name: "MPPI Term 2"
+        code: "EVAL: 'MPPITM%d' % env['school_academic_term'].search_count([])"
+        date_start: 2027-01-01
+        date_end: 2027-06-30
+        year_id: "REC: year.id"
+    - step: "Create grade X"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_x"
+      values:
+        name: "MPPI Grade X"
+        code: "EVAL: 'MPPIGR%d' % env['school_grade'].search_count([])"
+        sequence: 10
+        type_id: "REC: grade_type.id"
+    - step: "Create class X-1"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_1"
+      values:
+        name: "MPPI X-1"
+        code: "EVAL: 'MPPICL%d' % env['school_grade_class'].search_count([])"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-2"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_2"
+      values:
+        name: "MPPI X-2"
+        code: "EVAL: 'MPPICL%d' % env['school_grade_class'].search_count([])"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class Other X-1"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_other"
+      values:
+        name: "MPPI Other X-1"
+        code: "EVAL: 'MPPICL%d' % env['school_grade_class'].search_count([])"
+        school_id: "REC: school_other.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create mathematics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_math"
+      values:
+        name: "MPPI Mathematics"
+        code: "EVAL: 'MPPISJ%d' % env['school_subject'].search_count([])"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create physics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_physics"
+      values:
+        name: "MPPI Physics"
+        code: "EVAL: 'MPPISJ%d' % env['school_subject'].search_count([])"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create the homeroom of class X-1 in term 1"
+      action: "create"
+      model: "school_homeroom"
+      save_as: "hr_1"
+      values:
+        academic_year_id: "REC: year.id"
+        academic_term_id: "REC: term_1.id"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+        grade_class_id: "REC: class_1.id"
+    - step: "Create the homeroom of class X-2 in term 1"
+      action: "create"
+      model: "school_homeroom"
+      save_as: "hr_2"
+      values:
+        academic_year_id: "REC: year.id"
+        academic_term_id: "REC: term_1.id"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+        grade_class_id: "REC: class_2.id"
+    - step: "Create the homeroom of class X-1 in term 2"
+      action: "create"
+      model: "school_homeroom"
+      save_as: "hr_1_t2"
+      values:
+        academic_year_id: "REC: year.id"
+        academic_term_id: "REC: term_2.id"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+        grade_class_id: "REC: class_1.id"
+    - step: "Create the homeroom of the other school in term 1"
+      action: "create"
+      model: "school_homeroom"
+      save_as: "hr_other"
+      values:
+        academic_year_id: "REC: year.id"
+        academic_term_id: "REC: term_1.id"
+        school_id: "REC: school_other.id"
+        grade_id: "REC: grade_x.id"
+        grade_class_id: "REC: class_other.id"
+    - step: "Create the home address of teacher 1"
+      action: "create"
+      model: "res.partner"
+      save_as: "partner_1"
+      values:
+        name: "MPPI Teacher Home 1"
+    - step: "Create the employee of teacher 1"
+      action: "create"
+      model: "hr.employee"
+      save_as: "employee_1"
+      values:
+        name: "MPPI Teacher Employee 1"
+        company_id: "base.main_company"
+        address_home_id: "REC: partner_1.id"
+    - step: "Create teacher 1"
+      action: "create"
+      model: "school_teacher"
+      save_as: "teacher_1"
+      values:
+        name: "MPPI Teacher 1"
+        code: "EVAL: 'MPPITC%d' % env['school_teacher'].search_count([])"
+        employee_id: "REC: employee_1.id"
+    - step: "Create the home address of teacher 2"
+      action: "create"
+      model: "res.partner"
+      save_as: "partner_2"
+      values:
+        name: "MPPI Teacher Home 2"
+    - step: "Create the employee of teacher 2"
+      action: "create"
+      model: "hr.employee"
+      save_as: "employee_2"
+      values:
+        name: "MPPI Teacher Employee 2"
+        company_id: "base.main_company"
+        address_home_id: "REC: partner_2.id"
+    - step: "Create teacher 2"
+      action: "create"
+      model: "school_teacher"
+      save_as: "teacher_2"
+      values:
+        name: "MPPI Teacher 2"
+        code: "EVAL: 'MPPITC%d' % env['school_teacher'].search_count([])"
+        employee_id: "REC: employee_2.id"
+    - step: "Create the home address of teacher 3"
+      action: "create"
+      model: "res.partner"
+      save_as: "partner_3"
+      values:
+        name: "MPPI Teacher Home 3"
+    - step: "Create the employee of teacher 3"
+      action: "create"
+      model: "hr.employee"
+      save_as: "employee_3"
+      values:
+        name: "MPPI Teacher Employee 3"
+        company_id: "base.main_company"
+        address_home_id: "REC: partner_3.id"
+    - step: "Create teacher 3"
+      action: "create"
+      model: "school_teacher"
+      save_as: "teacher_3"
+      values:
+        name: "MPPI Teacher 3"
+        code: "EVAL: 'MPPITC%d' % env['school_teacher'].search_count([])"
+        employee_id: "REC: employee_3.id"
+    - step: "Create department"
+      action: "create"
+      model: "hr.department"
+      save_as: "department"
+      values:
+        name: "MPPI Department"
+    - step: "Create manpower planning of the school and the year"
+      action: "create"
+      model: "manpower_planning"
+      save_as: "planning"
+      values:
+        department_id: "REC: department.id"
+        school_id: "REC: school.id"
+        academic_year_id: "REC: year.id"
+        date_start: 2026-07-01
+        date_end: 2027-06-30
+
+scenarios:
+  - name: "Import Teaching - Main lines of one subject and teacher become one plan line"
+    steps:
+      - step: "Create the teaching assignment header_1"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_1"
+        values:
+          name: "MPPI header_1"
+          code: "/"
+          teacher_id: "REC: teacher_1.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line line_math_1"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_1"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_1.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Create the line line_math_2"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_2"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_2.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Create the teaching assignment header_2"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_2"
+        values:
+          name: "MPPI header_2"
+          code: "/"
+          teacher_id: "REC: teacher_2.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line line_physics"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_physics"
+        values:
+          assignment_id: "REC: header_2.id"
+          homeroom_id: "REC: hr_1.id"
+          subject_id: "REC: subject_physics.id"
+          role: "main"
+          weekly_hours: 3
+      - step: "Create the teaching assignment header_other_term"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_other_term"
+        values:
+          name: "MPPI header_other_term"
+          code: "/"
+          teacher_id: "REC: teacher_1.id"
+          academic_term_id: "REC: term_2.id"
+      - step: "Create the line line_term_2"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_term_2"
+        values:
+          assignment_id: "REC: header_other_term.id"
+          homeroom_id: "REC: hr_1_t2.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Create the teaching assignment header_other_school"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_other_school"
+        values:
+          name: "MPPI header_other_school"
+          code: "/"
+          teacher_id: "REC: teacher_3.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line line_other_school"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_other_school"
+        values:
+          assignment_id: "REC: header_other_school.id"
+          homeroom_id: "REC: hr_other.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Open the import wizard and select the term"
+        action: "form"
+        model: "import_teaching_assignment"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard"
+        ops:
+          - set: {academic_term_id: "REC: term_1"}
+      - step: "Run the import"
+        action: "call"
+        target: "wizard"
+        method: "action_confirm"
+      - step: "Two plan lines are created and no other line is read"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+        save_as: "plan_lines_1"
+        expect_count: 2
+      - step: "Find the plan line of subject_math"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["subject_id", "=", "REC: subject_math.id"]
+        save_as: "plan_math"
+        expect_count: 1
+      - step: "Mathematics has two classes and the teacher employee"
+        action: "assert"
+        target: "plan_math"
+        asserts:
+          total_class:
+            type: "value"
+            expected: 2
+          total_weekly_hours:
+            type: "value"
+            expected: 8
+          employee_id:
+            type: "m2o"
+            expected: "REC: employee_1"
+          is_vacant:
+            type: "value"
+            expected: false
+          grade_class_ids:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: class_1"
+              - "REC: class_2"
+          teaching_assignment_line_ids:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: line_math_1"
+              - "REC: line_math_2"
+          co_employee_id:
+            type: "value"
+            operator: "is_falsy"
+      - step: "Find the plan line of subject_physics"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["subject_id", "=", "REC: subject_physics.id"]
+        save_as: "plan_physics"
+        expect_count: 1
+      - step: "Physics keeps its own teacher"
+        action: "assert"
+        target: "plan_physics"
+        asserts:
+          employee_id:
+            type: "m2o"
+            expected: "REC: employee_2"
+          total_class:
+            type: "value"
+            expected: 1
+
+  - name: "Import Teaching - Importing again adds nothing"
+    steps:
+      - step: "Create the teaching assignment header_1"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_1"
+        values:
+          name: "MPPI header_1"
+          code: "/"
+          teacher_id: "REC: teacher_1.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line line_math_1"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_1"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_1.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Open the import wizard and select the term"
+        action: "form"
+        model: "import_teaching_assignment"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard_first"
+        ops:
+          - set: {academic_term_id: "REC: term_1"}
+      - step: "Run the import"
+        action: "call"
+        target: "wizard_first"
+        method: "action_confirm"
+      - step: "One plan line exists after the first import"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+        save_as: "plan_lines_2"
+        expect_count: 1
+      - step: "Open the import wizard and select the term"
+        action: "form"
+        model: "import_teaching_assignment"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard_second"
+        ops:
+          - set: {academic_term_id: "REC: term_1"}
+      - step: "Run the import"
+        action: "call"
+        target: "wizard_second"
+        method: "action_confirm"
+      - step: "Still one plan line after the second import"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+        save_as: "plan_lines_3"
+        expect_count: 1
+      - step: "A new source line is imported on the third run"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_2"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_2.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Open the import wizard and select the term"
+        action: "form"
+        model: "import_teaching_assignment"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard_third"
+        ops:
+          - set: {academic_term_id: "REC: term_1"}
+      - step: "Run the import"
+        action: "call"
+        target: "wizard_third"
+        method: "action_confirm"
+      - step: "The new line makes a second plan line and the first is kept"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+        save_as: "plan_lines_4"
+        expect_count: 2
+
+  - name: "Import Teaching - One assistant becomes the co-teacher"
+    steps:
+      - step: "Create the teaching assignment header_1"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_1"
+        values:
+          name: "MPPI header_1"
+          code: "/"
+          teacher_id: "REC: teacher_1.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line line_math_1"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_1"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_1.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Create the line line_math_2"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_2"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_2.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Create the teaching assignment header_3"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_3"
+        values:
+          name: "MPPI header_3"
+          code: "/"
+          teacher_id: "REC: teacher_3.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line assistant_1"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "assistant_1"
+        values:
+          assignment_id: "REC: header_3.id"
+          homeroom_id: "REC: hr_1.id"
+          subject_id: "REC: subject_math.id"
+          role: "assistant"
+          weekly_hours: 4
+      - step: "Create the line assistant_2"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "assistant_2"
+        values:
+          assignment_id: "REC: header_3.id"
+          homeroom_id: "REC: hr_2.id"
+          subject_id: "REC: subject_math.id"
+          role: "assistant"
+          weekly_hours: 4
+      - step: "Open the import wizard and select the term"
+        action: "form"
+        model: "import_teaching_assignment"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard"
+        ops:
+          - set: {academic_term_id: "REC: term_1"}
+      - step: "Run the import"
+        action: "call"
+        target: "wizard"
+        method: "action_confirm"
+      - step: "Find the plan line of subject_math"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["subject_id", "=", "REC: subject_math.id"]
+        save_as: "plan_math"
+        expect_count: 1
+      - step: "The assistant is the co-teacher and the lines are linked"
+        action: "assert"
+        target: "plan_math"
+        asserts:
+          co_employee_id:
+            type: "m2o"
+            expected: "REC: employee_3"
+          teaching_assignment_line_ids:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: line_math_1"
+              - "REC: line_math_2"
+              - "REC: assistant_1"
+              - "REC: assistant_2"
+
+  - name: "Import Teaching - Two different assistants leave the co-teacher empty"
+    steps:
+      - step: "Create the teaching assignment header_1"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_1"
+        values:
+          name: "MPPI header_1"
+          code: "/"
+          teacher_id: "REC: teacher_1.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line line_math_1"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_1"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_1.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Create the line line_math_2"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "line_math_2"
+        values:
+          assignment_id: "REC: header_1.id"
+          homeroom_id: "REC: hr_2.id"
+          subject_id: "REC: subject_math.id"
+          role: "main"
+          weekly_hours: 4
+      - step: "Create the teaching assignment header_2"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_2"
+        values:
+          name: "MPPI header_2"
+          code: "/"
+          teacher_id: "REC: teacher_2.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line assistant_1"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "assistant_1"
+        values:
+          assignment_id: "REC: header_2.id"
+          homeroom_id: "REC: hr_1.id"
+          subject_id: "REC: subject_math.id"
+          role: "assistant"
+          weekly_hours: 4
+      - step: "Create the teaching assignment header_3"
+        action: "create"
+        model: "school_teaching_assignment"
+        save_as: "header_3"
+        values:
+          name: "MPPI header_3"
+          code: "/"
+          teacher_id: "REC: teacher_3.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "Create the line assistant_2"
+        action: "create"
+        model: "school_teaching_assignment_line"
+        save_as: "assistant_2"
+        values:
+          assignment_id: "REC: header_3.id"
+          homeroom_id: "REC: hr_2.id"
+          subject_id: "REC: subject_math.id"
+          role: "assistant"
+          weekly_hours: 4
+      - step: "Open the import wizard and select the term"
+        action: "form"
+        model: "import_teaching_assignment"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard"
+        ops:
+          - set: {academic_term_id: "REC: term_1"}
+      - step: "Run the import"
+        action: "call"
+        target: "wizard"
+        method: "action_confirm"
+      - step: "Find the plan line of subject_math"
+        action: "search"
+        model: "manpower_planning_teaching"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["subject_id", "=", "REC: subject_math.id"]
+        save_as: "plan_math"
+        expect_count: 1
+      - step: "No co-teacher is set and only the main lines are linked"
+        action: "assert"
+        target: "plan_math"
+        asserts:
+          co_employee_id:
+            type: "value"
+            operator: "is_falsy"
+          teaching_assignment_line_ids:
+            type: "m2m"
+            check: "exact"
+            expected_records:
+              - "REC: line_math_1"
+              - "REC: line_math_2"
+
+  - name: "Import Teaching - A term is required"
+    steps:
+      - step: "The wizard cannot be saved without an academic term"
+        action: "form"
+        model: "import_teaching_assignment"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        expect_error:
+          type: "AssertionError"
+          message_contains: "required field"
+        ops:
+          - assert:
+              planning_id:
+                type: "m2o"
+                expected: "REC: planning"
+
+  - name: "Import Teaching - A planning without school is rejected"
+    steps:
+      - step: "Create a planning without school"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning_no_school"
+        values:
+          department_id: "REC: department.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+      - step: "Create the wizard of that planning"
+        action: "create"
+        model: "import_teaching_assignment"
+        save_as: "wizard"
+        values:
+          planning_id: "REC: planning_no_school.id"
+          academic_term_id: "REC: term_1.id"
+      - step: "The import is rejected"
+        action: "call"
+        target: "wizard"
+        method: "action_confirm"
+        expect_error:
+          type: "UserError"
+          message_contains: "not in draft or has no school"
+
+  - name:
+      "Import Teaching - A school planning without teaching lines still goes through
+      approval"
+    steps:
+      - step: "Create a job"
+        action: "create"
+        model: "hr.job"
+        save_as: "job"
+        values:
+          name: "MPPI Job"
+      - step: "Create a school planning with a formation only"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning_formation"
+        values:
+          department_id: "REC: department.id"
+          school_id: "REC: school.id"
+          academic_year_id: "REC: year.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          formation_ids:
+            - - 0
+              - 0
+              - job_id: "REC: job.id"
+                quantity: 1
+      - step: "Confirm the planning"
+        action: "call"
+        target: "planning_formation"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+      - step: "Approve the planning"
+        action: "call"
+        target: "planning_formation"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
