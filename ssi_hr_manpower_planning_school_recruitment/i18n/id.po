@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* ssi_hr_manpower_planning_school_recruitment
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-26 00:00+0000\n"
+"PO-Revision-Date: 2026-11-26 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model,name:ssi_hr_manpower_planning_school_recruitment.model_create_recruitment_vacancy_from_manpower_planning
+msgid "Create Recruitment Vacancy from Manpower Planning"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model,name:ssi_hr_manpower_planning_school_recruitment.model_create_recruitment_vacancy_from_manpower_planning_line
+msgid "Create Recruitment Vacancy from Manpower Planning - Line"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__display_name
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__id
+msgid "ID"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__job_id
+msgid "Job Position"
+msgstr "Jabatan"
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning__teaching_job_id
+msgid ""
+"Job position of the vacancies requested for the teaching lines. It is copied "
+"to every teaching line of the wizard."
+msgstr ""
+"Jabatan lowongan yang diminta untuk baris pengajaran. Disalin ke setiap "
+"baris pengajaran pada wizard."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__job_id
+msgid "Job position the vacancy is requested for."
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line____last_update
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__weekly_hours
+msgid "Lesson hours per week of the teaching line, for all of its classes."
+msgstr ""
+"Jam pelajaran per minggu pada baris pengajaran, untuk seluruh kelasnya."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__weekly_hours
+msgid "Lesson hours per week the new teacher will teach."
+msgstr "Jam pelajaran per minggu yang akan diajar guru baru."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__total_class
+msgid "Number of classes of the teaching line."
+msgstr "Jumlah kelas pada baris pengajaran."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__total_class
+msgid "Number of classes the new teacher will teach."
+msgstr "Jumlah kelas yang akan diajar guru baru."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__subject_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__subject_id
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school_recruitment.recruitment_vacancy_view_search
+msgid "Subject"
+msgstr "Mata Pelajaran"
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__subject_id
+msgid "Subject of the teaching line."
+msgstr "Mata pelajaran pada baris pengajaran."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__subject_id
+msgid "Subject the new teacher will teach."
+msgstr "Mata pelajaran yang akan diajar guru baru."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning__teaching_job_id
+msgid "Teacher Job Position"
+msgstr "Jabatan Guru"
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school_recruitment.recruitment_vacancy_view_form
+msgid "Teaching"
+msgstr "Pengajaran"
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__teaching_id
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__manpower_planning_teaching_id
+msgid "Teaching Assignment Plan"
+msgstr "Rencana Penugasan Mengajar"
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__manpower_planning_teaching_id
+msgid ""
+"Teaching line of the manpower planning this vacancy was requested for. "
+"Optional and filled when the vacancy is created from a vacant teaching line."
+msgstr ""
+"Baris pengajaran pada perencanaan tenaga kerja yang menjadi dasar permintaan "
+"lowongan ini. Opsional dan terisi saat lowongan dibuat dari baris pengajaran "
+"yang kosong."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__total_class
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__total_class
+msgid "Total Classes"
+msgstr "Total Kelas"
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model,name:ssi_hr_manpower_planning_school_recruitment.model_recruitment_vacancy
+msgid "Vacancy"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__teaching_id
+msgid ""
+"Vacant teaching line of the planning this line requests a teacher for. Empty "
+"for a line of a job position."
+msgstr ""
+"Baris pengajaran kosong pada perencanaan yang dimintakan gurunya oleh baris "
+"ini. Kosong untuk baris jabatan."
+
+#. module: ssi_hr_manpower_planning_school_recruitment
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_create_recruitment_vacancy_from_manpower_planning_line__weekly_hours
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school_recruitment.field_recruitment_vacancy__weekly_hours
+msgid "Weekly Hours"
+msgstr "Jam Pelajaran per Minggu"

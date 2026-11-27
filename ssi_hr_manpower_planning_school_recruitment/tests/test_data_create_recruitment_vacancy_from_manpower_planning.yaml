@@ -1,0 +1,382 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create grade type"
+      action: "create"
+      model: "school_grade_type"
+      save_as: "grade_type"
+      values:
+        name: "MPPSR Grade Type"
+        code: "/"
+        sequence: 10
+    - step: "Create school"
+      action: "create"
+      model: "school"
+      save_as: "school"
+      values:
+        name: "MPPSR School"
+        code: "/"
+        grade_type_id: "REC: grade_type.id"
+    - step: "Create grade X"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_x"
+      values:
+        name: "MPPSR Grade X"
+        code: "/"
+        sequence: 10
+        type_id: "REC: grade_type.id"
+    - step: "Create class X-1"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_1"
+      values:
+        name: "MPPSR X-1"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-2"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_2"
+      values:
+        name: "MPPSR X-2"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create mathematics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_math"
+      values:
+        name: "MPPSR Mathematics"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create physics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_physics"
+      values:
+        name: "MPPSR Physics"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create department"
+      action: "create"
+      model: "hr.department"
+      save_as: "dept"
+      values:
+        name: "MPPSR Department"
+    - step: "Create teacher"
+      action: "create"
+      model: "hr.employee"
+      save_as: "teacher"
+      values:
+        name: "MPPSR Teacher"
+
+scenarios:
+  - name:
+      "School Recruitment - Wizard proposes the vacant teaching lines and creates
+      vacancies with the teaching data"
+    steps:
+      - step: "Create job A"
+        action: "create"
+        model: "hr.job"
+        save_as: "job_a"
+        values:
+          name: "MPPSR Job A Form"
+
+      - step: "Create planning with a vacant formation of job A"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: dept.id"
+          school_id: "REC: school.id"
+          date_start: 2026-01-01
+          date_end: 2026-12-31
+          formation_ids:
+            - - 0
+              - 0
+              - job_id: "REC: job_a.id"
+                quantity: 1
+
+      - step: "Create the vacant teaching line of mathematics for two classes"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "teaching_math"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+                - "REC: class_2.id"
+          weekly_hours: 4
+
+      - step: "Create the filled teaching line of physics"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_physics.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+          weekly_hours: 2
+          employee_id: "REC: teacher.id"
+
+      - step: "Confirm planning"
+        action: "call"
+        target: "planning"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Approve planning"
+        action: "call"
+        target: "planning"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+
+      - step: "Wizard proposes the formation of job A and the vacant mathematics"
+        action: "form"
+        model: "create_recruitment_vacancy_from_manpower_planning"
+        as_user: "base.user_admin"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard"
+        ops:
+          - assert:
+              line_ids:
+                type: "o2m"
+                check: "count"
+                expected_count: 2
+          - set:
+              date_start: 2026-01-01
+              teaching_job_id: "REC: job_a"
+          - edit:
+              field: "line_ids"
+              index: 0
+              values:
+                expected_join_date: 2026-06-01
+          - edit:
+              field: "line_ids"
+              index: 1
+              values:
+                expected_join_date: 2026-07-01
+
+      - step: "Confirm the wizard"
+        action: "call"
+        target: "wizard"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+
+      - step: "Find the vacancy of the mathematics line"
+        action: "search"
+        model: "recruitment_vacancy"
+        domain:
+          - ["manpower_planning_teaching_id", "=", "REC: teaching_math.id"]
+        save_as: "vacancy_math"
+        expect_count: 1
+
+      - step: "Vacancy carries the subject, the weekly hours and the classes"
+        action: "assert"
+        target: "vacancy_math"
+        asserts:
+          state:
+            type: "value"
+            expected: "draft"
+          job_id:
+            type: "m2o"
+            expected: "REC: job_a"
+          subject_id:
+            type: "m2o"
+            expected: "REC: subject_math"
+          weekly_hours:
+            type: "value"
+            expected: 8
+          total_class:
+            type: "value"
+            expected: 2
+          manpower_planning_id:
+            type: "m2o"
+            expected: "REC: planning"
+
+      - step: "Find the vacancy of the formation"
+        action: "search"
+        model: "recruitment_vacancy"
+        domain:
+          - ["manpower_planning_id", "=", "REC: planning.id"]
+          - ["manpower_planning_teaching_id", "=", false]
+        save_as: "vacancy_formation"
+        expect_count: 1
+
+      - step: "Vacancy of the formation has no teaching data"
+        action: "assert"
+        target: "vacancy_formation"
+        asserts:
+          weekly_hours:
+            type: "value"
+            expected: 0
+          total_class:
+            type: "value"
+            expected: 0
+
+  - name: "School Recruitment - A requested teaching line is not proposed again"
+    steps:
+      - step: "Create job B"
+        action: "create"
+        model: "hr.job"
+        save_as: "job_b"
+        values:
+          name: "MPPSR Job B Again"
+
+      - step: "Create planning of the school"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: dept.id"
+          school_id: "REC: school.id"
+          date_start: 2026-01-01
+          date_end: 2026-12-31
+
+      - step: "Create the vacant teaching line of mathematics"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "teaching_math"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+          weekly_hours: 3
+
+      - step: "Confirm planning"
+        action: "call"
+        target: "planning"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Approve planning"
+        action: "call"
+        target: "planning"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+
+      - step: "Wizard proposes only the vacant mathematics line"
+        action: "form"
+        model: "create_recruitment_vacancy_from_manpower_planning"
+        as_user: "base.user_admin"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        save_as: "wizard"
+        ops:
+          - assert:
+              line_ids:
+                type: "o2m"
+                check: "count"
+                expected_count: 1
+          - set:
+              date_start: 2026-01-01
+              teaching_job_id: "REC: job_b"
+          - edit:
+              field: "line_ids"
+              index: 0
+              values:
+                expected_join_date: 2026-06-01
+
+      - step: "Confirm the wizard"
+        action: "call"
+        target: "wizard"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+
+      - step: "Wizard opened again proposes nothing"
+        action: "form"
+        model: "create_recruitment_vacancy_from_manpower_planning"
+        as_user: "base.user_admin"
+        context:
+          active_model: "manpower_planning"
+          active_id: "REC: planning.id"
+        ops:
+          - assert:
+              line_ids:
+                type: "o2m"
+                check: "count"
+                expected_count: 0
+
+  - name: "School Recruitment - A teaching line without job position is rejected"
+    steps:
+      - step: "Create planning of the school"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning"
+        values:
+          department_id: "REC: dept.id"
+          school_id: "REC: school.id"
+          date_start: 2026-01-01
+          date_end: 2026-12-31
+
+      - step: "Create the vacant teaching line of mathematics"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "teaching_math"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          weekly_hours: 3
+
+      - step: "Create the wizard of the planning"
+        action: "create"
+        model: "create_recruitment_vacancy_from_manpower_planning"
+        save_as: "wizard"
+        as_user: "base.user_admin"
+        values:
+          planning_id: "REC: planning.id"
+          date_start: 2026-01-01
+
+      - step: "Teaching line without job position is rejected"
+        action: "create"
+        model: "create_recruitment_vacancy_from_manpower_planning_line"
+        as_user: "base.user_admin"
+        expect_error:
+          type: "ValidationError"
+        values:
+          wizard_id: "REC: wizard.id"
+          teaching_id: "REC: teaching_math.id"
+          quantity: 1
+          expected_join_date: 2026-03-01

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="recruitment_vacancy_view_search" model="ir.ui.view">
+    <field name="name">recruitment_vacancy - search (manpower planning school)</field>
+    <field name="model">recruitment_vacancy</field>
+    <field name="inherit_id" ref="ssi_hr_recruitment.recruitment_vacancy_view_search" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="subject_id" />
+            </xpath>
+            <xpath expr="//filter[@name='grp_expected_join_date']" position="after">
+                <filter
+                        name="grp_subject"
+                        string="Subject"
+                        context="{'group_by':'subject_id'}"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="recruitment_vacancy_view_form" model="ir.ui.view">
+    <field name="name">recruitment_vacancy - form (manpower planning school)</field>
+    <field name="model">recruitment_vacancy</field>
+    <field name="inherit_id" ref="ssi_hr_recruitment.recruitment_vacancy_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//page[@name='page_reason']" position="after">
+                <page name="page_teaching" string="Teaching">
+                    <group name="group_teaching" string="Teaching" col="2">
+                        <field
+                                name="manpower_planning_teaching_id"
+                                options="{'no_open': True, 'no_create': True}"
+                                invisible="1"
+                            />
+                        <field
+                                name="subject_id"
+                                options="{'no_open': True, 'no_create': True}"
+                            />
+                        <field name="weekly_hours" />
+                        <field name="total_class" />
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+</odoo>

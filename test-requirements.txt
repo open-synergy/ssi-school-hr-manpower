@@ -30,3 +30,5 @@ odoo14-addon-queue-job
 odoo14-addon-ssi-hr-employee-identification-from-work-address
 odoo14-addon-ssi-state-change-history-mixin
 odoo14-addon-ssi-transaction-terminate-mixin
+odoo14-addon-ssi-hr-manpower-planning-recruitment
+odoo14-addon-ssi-hr-recruitment>=14.0.1.3.0
