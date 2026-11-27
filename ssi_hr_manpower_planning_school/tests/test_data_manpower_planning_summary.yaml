@@ -1,0 +1,337 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create grade type"
+      action: "create"
+      model: "school_grade_type"
+      save_as: "grade_type"
+      values:
+        name: "MPP Summary Grade Type"
+        code: "/"
+        sequence: 10
+    - step: "Create school"
+      action: "create"
+      model: "school"
+      save_as: "school"
+      values:
+        name: "MPP Summary School"
+        code: "/"
+        grade_type_id: "REC: grade_type.id"
+    - step: "Create academic year"
+      action: "create"
+      model: "school_academic_year"
+      save_as: "year"
+      values:
+        name: "MPP Summary Academic Year"
+        code: "/"
+        date_start: "2026-07-01"
+        date_end: "2027-06-30"
+    - step: "Create grade X"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_x"
+      values:
+        name: "MPP Summary Grade X"
+        code: "/"
+        sequence: 10
+        type_id: "REC: grade_type.id"
+    - step: "Create class X-1"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_1"
+      values:
+        name: "MPP Summary X-1"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-2"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_2"
+      values:
+        name: "MPP Summary X-2"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create mathematics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_math"
+      values:
+        name: "MPP Summary Mathematics"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create department"
+      action: "create"
+      model: "hr.department"
+      save_as: "department"
+      values:
+        name: "MPP Summary Department"
+    - step: "Create teacher"
+      action: "create"
+      model: "hr.employee"
+      save_as: "teacher"
+      values:
+        name: "MPP Summary Teacher"
+    - step: "Create job position of the vice principal"
+      action: "create"
+      model: "hr.job"
+      save_as: "job_vice"
+      values:
+        name: "MPP Summary Vice Principal Job"
+    - step: "Create structural type given to the vice principal job"
+      action: "create"
+      model: "manpower_planning_assignment_type"
+      save_as: "type_structural"
+      values:
+        name: "MPP Summary Vice Principal"
+        code: "/"
+        category: "structural"
+        hour_basis: "week"
+        default_hours: 6
+        job_id: "REC: job_vice.id"
+    - step: "Create non-teacher type"
+      action: "create"
+      model: "manpower_planning_assignment_type"
+      save_as: "type_non_teacher"
+      values:
+        name: "MPP Summary Non Teacher"
+        code: "/"
+        category: "non_teacher"
+        hour_basis: "week"
+        default_hours: 40
+    - step: "Create manpower planning of the school and the year"
+      action: "create"
+      model: "manpower_planning"
+      save_as: "planning"
+      values:
+        department_id: "REC: department.id"
+        school_id: "REC: school.id"
+        academic_year_id: "REC: year.id"
+        date_start: 2026-07-01
+        date_end: 2027-06-30
+
+scenarios:
+  - name: "Summary - Teaching lines are counted per school and academic year"
+    steps:
+      - step: "A teaching line with a teacher"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line_filled"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+          weekly_hours: 4
+          employee_id: "REC: teacher.id"
+      - step: "A vacant teaching line"
+        action: "create"
+        model: "manpower_planning_teaching"
+        save_as: "line_vacant"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_2.id"
+          weekly_hours: 4
+      - step: "Find the teaching summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["category", "=", "teaching"]
+        save_as: "summary_teaching"
+        expect_count: 1
+      - step: "Two lines are needed, one is filled and one is vacant"
+        action: "assert"
+        target: "summary_teaching"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 2
+          quantity_filled:
+            type: "value"
+            expected: 1
+          quantity_vacant:
+            type: "value"
+            expected: 1
+          school_id:
+            type: "m2o"
+            expected: "REC: school"
+          academic_year_id:
+            type: "m2o"
+            expected: "REC: year"
+          job_id:
+            type: "value"
+            operator: "is_falsy"
+
+  - name: "Summary - Assignment lines are counted per category with the job of the type"
+    steps:
+      - step: "A structural line held by the teacher"
+        action: "create"
+        model: "manpower_planning_assignment"
+        save_as: "line_filled"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_structural.id"
+          employee_id: "REC: teacher.id"
+          hours: 6
+      - step: "A vacant structural line"
+        action: "create"
+        model: "manpower_planning_assignment"
+        save_as: "line_vacant"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_structural.id"
+          hours: 6
+      - step: "Find the structural summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["category", "=", "structural"]
+        save_as: "summary_structural"
+        expect_count: 1
+      - step: "The row has the job of the type, two needed and one vacant"
+        action: "assert"
+        target: "summary_structural"
+        asserts:
+          job_id:
+            type: "m2o"
+            expected: "REC: job_vice"
+          quantity_needed:
+            type: "value"
+            expected: 2
+          quantity_filled:
+            type: "value"
+            expected: 1
+          quantity_vacant:
+            type: "value"
+            expected: 1
+          school_id:
+            type: "m2o"
+            expected: "REC: school"
+          academic_year_id:
+            type: "m2o"
+            expected: "REC: year"
+
+  - name: "Summary - A planning without teaching lines has no teaching row"
+    steps:
+      - step: "Create a non-teacher planning with a formation line"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning_staff"
+        values:
+          department_id: "REC: department.id"
+          school_id: "REC: school.id"
+          academic_year_id: "REC: year.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          formation_ids:
+            - - 0
+              - 0
+              - job_id: "REC: job_vice.id"
+                quantity: 3
+      - step: "A non-teacher position without an employee"
+        action: "create"
+        model: "manpower_planning_assignment"
+        save_as: "line_non_teacher"
+        values:
+          planning_id: "REC: planning_staff.id"
+          type_id: "REC: type_non_teacher.id"
+          hours: 40
+      - step: "There is no teaching summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning_staff.id"]
+          - ["category", "=", "teaching"]
+        save_as: "summary_teaching"
+        expect_count: 0
+      - step: "Find the formation summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning_staff.id"]
+          - ["category", "=", "formation"]
+        save_as: "summary_formation"
+        expect_count: 1
+      - step: "The formation needs 3 and fills none"
+        action: "assert"
+        target: "summary_formation"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 3
+          quantity_vacant:
+            type: "value"
+            expected: 3
+      - step: "Find the non-teacher summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning_staff.id"]
+          - ["category", "=", "non_teacher"]
+        save_as: "summary_non_teacher"
+        expect_count: 1
+      - step: "The non-teacher position is needed and vacant"
+        action: "assert"
+        target: "summary_non_teacher"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 1
+          quantity_vacant:
+            type: "value"
+            expected: 1
+
+  - name: "Summary - A planning without school keeps its formation rows"
+    steps:
+      - step: "Create a planning without school and academic year"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning_plain"
+        values:
+          department_id: "REC: department.id"
+          date_start: 2026-01-01
+          date_end: 2026-12-31
+          formation_ids:
+            - - 0
+              - 0
+              - job_id: "REC: job_vice.id"
+                quantity: 2
+      - step: "Find the formation summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning_plain.id"]
+        save_as: "summary_plain"
+        expect_count: 1
+      - step: "The row has no school and no academic year"
+        action: "assert"
+        target: "summary_plain"
+        asserts:
+          category:
+            type: "value"
+            expected: "formation"
+          quantity_needed:
+            type: "value"
+            expected: 2
+          school_id:
+            type: "value"
+            operator: "is_falsy"
+          academic_year_id:
+            type: "value"
+            operator: "is_falsy"

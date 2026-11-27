@@ -1,0 +1,89 @@
+scenarios:
+  - name: "Manpower Planning Assignment Type - Create"
+    steps:
+      - step: "Create assignment type"
+        action: "create"
+        model: "manpower_planning_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "MPP Type Create"
+          code: "/"
+          category: "extracurricular"
+          default_hours: 3
+      - step: "Assignment type is created with the default hour basis"
+        action: "assert"
+        target: "assignment_type"
+        asserts:
+          id:
+            type: "value"
+            operator: "is_truthy"
+          category:
+            type: "value"
+            expected: "extracurricular"
+          hour_basis:
+            type: "value"
+            expected: "week"
+          default_hours:
+            type: "value"
+            expected: 3
+
+  - name: "Manpower Planning Assignment Type - Edit"
+    steps:
+      - step: "Create job position"
+        action: "create"
+        model: "hr.job"
+        save_as: "job"
+        values:
+          name: "MPP Type Edit Job"
+      - step: "Create assignment type"
+        action: "create"
+        model: "manpower_planning_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "MPP Type Edit"
+          code: "/"
+          category: "additional"
+      - step: "Change the basis, hours and job of the type"
+        action: "write"
+        target: "assignment_type"
+        values:
+          category: "picket"
+          hour_basis: "day"
+          default_hours: 2
+          job_id: "REC: job.id"
+      - step: "Assignment type is updated"
+        action: "assert"
+        target: "assignment_type"
+        asserts:
+          category:
+            type: "value"
+            expected: "picket"
+          hour_basis:
+            type: "value"
+            expected: "day"
+          default_hours:
+            type: "value"
+            expected: 2
+          job_id:
+            type: "m2o"
+            expected: "REC: job"
+
+  - name: "Manpower Planning Assignment Type - Delete"
+    steps:
+      - step: "Create assignment type"
+        action: "create"
+        model: "manpower_planning_assignment_type"
+        save_as: "assignment_type"
+        values:
+          name: "MPP Type Delete"
+          code: "/"
+          category: "non_teacher"
+      - step: "Delete the assignment type"
+        action: "unlink"
+        target: "assignment_type"
+      - step: "Assignment type no longer exists"
+        action: "search"
+        model: "manpower_planning_assignment_type"
+        domain: [["name", "=", "MPP Type Delete"]]
+        save_as: "result"
+        expect_count: 0

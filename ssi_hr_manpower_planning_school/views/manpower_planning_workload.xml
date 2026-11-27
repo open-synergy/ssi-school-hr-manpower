@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="manpower_planning_workload_view_search" model="ir.ui.view">
+    <field name="name">manpower_planning_workload - search</field>
+    <field name="model">manpower_planning_workload</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="planning_id" />
+            <field name="employee_id" />
+            <field name="school_id" />
+            <field name="academic_year_id" />
+            <group name="group_by">
+                <filter
+                        name="grp_planning"
+                        string="Manpower Planning"
+                        context="{'group_by':'planning_id'}"
+                    />
+                <filter
+                        name="grp_school"
+                        string="School"
+                        context="{'group_by':'school_id'}"
+                    />
+                <filter
+                        name="grp_academic_year"
+                        string="Academic Year"
+                        context="{'group_by':'academic_year_id'}"
+                    />
+                <filter
+                        name="grp_employee"
+                        string="Employee"
+                        context="{'group_by':'employee_id'}"
+                    />
+                <filter
+                        name="grp_state"
+                        string="State"
+                        context="{'group_by':'state'}"
+                    />
+            </group>
+        </search>
+    </field>
+</record>
+
+<record id="manpower_planning_workload_view_tree" model="ir.ui.view">
+    <field name="name">manpower_planning_workload - tree</field>
+    <field name="model">manpower_planning_workload</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="planning_id" />
+            <field name="school_id" />
+            <field name="academic_year_id" />
+            <field name="employee_id" />
+            <field name="state" />
+            <field name="teaching_hours" sum="Total" />
+            <field name="co_teaching_count" sum="Total" />
+            <field name="co_teaching_hours" sum="Total" />
+            <field name="assignment_weekly_hours" sum="Total" />
+            <field name="assignment_daily_hours" sum="Total" />
+            <field name="picket_weekly_hours" sum="Total" />
+            <field name="total_weekly_hours" sum="Total" />
+            <field name="is_teacher" />
+            <field name="mandatory_weekly_hours" />
+            <field name="lack_weekly_hours" sum="Total" />
+            <field name="excess_weekly_hours" sum="Total" />
+        </tree>
+    </field>
+</record>
+
+<record id="manpower_planning_workload_view_pivot" model="ir.ui.view">
+    <field name="name">manpower_planning_workload - pivot</field>
+    <field name="model">manpower_planning_workload</field>
+    <field name="arch" type="xml">
+        <pivot>
+            <field name="school_id" type="row" />
+            <field name="academic_year_id" type="col" />
+            <field name="employee_id" type="row" />
+            <field name="teaching_hours" type="measure" />
+            <field name="co_teaching_hours" type="measure" />
+            <field name="assignment_weekly_hours" type="measure" />
+            <field name="picket_weekly_hours" type="measure" />
+            <field name="total_weekly_hours" type="measure" />
+            <field name="lack_weekly_hours" type="measure" />
+            <field name="excess_weekly_hours" type="measure" />
+        </pivot>
+    </field>
+</record>
+
+<record id="manpower_planning_workload_action" model="ir.actions.act_window">
+    <field name="name">Manpower Workload</field>
+    <field name="res_model">manpower_planning_workload</field>
+    <field name="view_mode">pivot,tree</field>
+    <field
+            name="view_ids"
+            eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'pivot', 'view_id': ref('manpower_planning_workload_view_pivot')}),
+        (0, 0, {'view_mode': 'tree', 'view_id': ref('manpower_planning_workload_view_tree')})]"
+        />
+</record>
+
+<menuitem
+        id="manpower_planning_workload_menu"
+        name="Manpower Workload"
+        parent="ssi_hr.menu_human_resource_report"
+        action="manpower_planning_workload_action"
+        groups="ssi_hr_manpower_planning.manpower_planning_viewer_group"
+        sequence="22"
+    />
+</odoo>

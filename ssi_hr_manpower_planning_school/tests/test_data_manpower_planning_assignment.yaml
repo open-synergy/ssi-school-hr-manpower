@@ -1,0 +1,181 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create department"
+      action: "create"
+      model: "hr.department"
+      save_as: "department"
+      values:
+        name: "MPP Assignment Department"
+    - step: "Create employee A"
+      action: "create"
+      model: "hr.employee"
+      save_as: "employee_a"
+      values:
+        name: "MPP Assignment Employee A"
+    - step: "Create manpower planning"
+      action: "create"
+      model: "manpower_planning"
+      save_as: "planning"
+      values:
+        department_id: "REC: department.id"
+        date_start: 2026-07-01
+        date_end: 2027-06-30
+    - step: "Create structural type of 6 hours per week"
+      action: "create"
+      model: "manpower_planning_assignment_type"
+      save_as: "type_structural"
+      values:
+        name: "MPP Vice Principal"
+        code: "/"
+        category: "structural"
+        hour_basis: "week"
+        default_hours: 6
+    - step: "Create picket type of 2 hours per day"
+      action: "create"
+      model: "manpower_planning_assignment_type"
+      save_as: "type_picket"
+      values:
+        name: "MPP Picket Duty"
+        code: "/"
+        category: "picket"
+        hour_basis: "day"
+        default_hours: 2
+    - step: "Create academic coaching type"
+      action: "create"
+      model: "manpower_planning_assignment_type"
+      save_as: "type_coaching"
+      values:
+        name: "MPP Olympiad Coaching"
+        code: "/"
+        category: "binpres_academic"
+        hour_basis: "week"
+        default_hours: 4
+
+scenarios:
+  - name: "Assignment - Structural type fills the default hours"
+    steps:
+      - step: "Pick the structural type in the assignment form"
+        action: "form"
+        model: "manpower_planning_assignment"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning"
+          type_id: "REC: type_structural"
+          employee_id: "REC: employee_a"
+        asserts:
+          hours:
+            type: "value"
+            expected: 6
+      - step: "Category and hour basis follow the type"
+        action: "assert"
+        target: "line"
+        asserts:
+          category:
+            type: "value"
+            expected: "structural"
+          hour_basis:
+            type: "value"
+            expected: "week"
+          hours:
+            type: "value"
+            expected: 6
+          is_vacant:
+            type: "value"
+            expected: false
+
+  - name: "Assignment - Picket type is counted per day"
+    steps:
+      - step: "Pick the picket type in the assignment form"
+        action: "form"
+        model: "manpower_planning_assignment"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning"
+          type_id: "REC: type_picket"
+          employee_id: "REC: employee_a"
+        asserts:
+          hours:
+            type: "value"
+            expected: 2
+      - step: "Picket category and daily basis are copied"
+        action: "assert"
+        target: "line"
+        asserts:
+          category:
+            type: "value"
+            expected: "picket"
+          hour_basis:
+            type: "value"
+            expected: "day"
+
+  - name: "Assignment - Hours can be changed after the default is filled"
+    steps:
+      - step: "Pick the type, then override the hours"
+        action: "form"
+        model: "manpower_planning_assignment"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning"
+          type_id: "REC: type_structural"
+          hours: 8
+      - step: "The typed hours are kept"
+        action: "assert"
+        target: "line"
+        asserts:
+          hours:
+            type: "value"
+            expected: 8
+
+  - name: "Assignment - Coaching line without employee is vacant"
+    steps:
+      - step: "Create a coaching line without employee"
+        action: "create"
+        model: "manpower_planning_assignment"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_coaching.id"
+          hours: 4
+          class_count: 2
+      - step: "The line is vacant, a coach and in the coaching category"
+        action: "assert"
+        target: "line"
+        asserts:
+          is_vacant:
+            type: "value"
+            expected: true
+          position:
+            type: "value"
+            expected: "coach"
+          category:
+            type: "value"
+            expected: "binpres_academic"
+          class_count:
+            type: "value"
+            expected: 2
+
+  - name: "Assignment - Assistant coach position can be stored"
+    steps:
+      - step: "Create an assistant coach line"
+        action: "create"
+        model: "manpower_planning_assignment"
+        save_as: "line"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_coaching.id"
+          employee_id: "REC: employee_a.id"
+          position: "assistant"
+          hours: 4
+      - step: "The position and the employee are stored"
+        action: "assert"
+        target: "line"
+        asserts:
+          position:
+            type: "value"
+            expected: "assistant"
+          is_vacant:
+            type: "value"
+            expected: false

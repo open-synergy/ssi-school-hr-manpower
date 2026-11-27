@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="manpower_planning_summary_view_search" model="ir.ui.view">
+    <field name="name">manpower_planning_summary - search (school)</field>
+    <field name="model">manpower_planning_summary</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning.manpower_planning_summary_view_search"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="school_id" />
+                <field name="academic_year_id" />
+            </xpath>
+            <xpath expr="//filter[@name='grp_department']" position="before">
+                <filter
+                        name="grp_school"
+                        string="School"
+                        context="{'group_by':'school_id'}"
+                    />
+                <filter
+                        name="grp_academic_year"
+                        string="Academic Year"
+                        context="{'group_by':'academic_year_id'}"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_summary_view_tree" model="ir.ui.view">
+    <field name="name">manpower_planning_summary - tree (school)</field>
+    <field name="model">manpower_planning_summary</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning.manpower_planning_summary_view_tree"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='department_id']" position="after">
+                <field name="school_id" optional="show" />
+                <field name="academic_year_id" optional="show" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_summary_view_pivot" model="ir.ui.view">
+    <field name="name">manpower_planning_summary - pivot (school)</field>
+    <field name="model">manpower_planning_summary</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning.manpower_planning_summary_view_pivot"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='department_id']" position="before">
+                <field name="school_id" type="row" />
+            </xpath>
+            <xpath expr="//field[@name='quantity_needed']" position="before">
+                <field name="academic_year_id" type="col" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="manpower_planning_summary_view_pivot_vacant" model="ir.ui.view">
+    <field name="name">manpower_planning_summary - pivot vacant (school)</field>
+    <field name="model">manpower_planning_summary</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning.manpower_planning_summary_view_pivot_vacant"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='department_id']" position="before">
+                <field name="school_id" type="row" />
+            </xpath>
+            <xpath expr="//field[@name='quantity_vacant']" position="before">
+                <field name="academic_year_id" type="col" />
+            </xpath>
+        </data>
+    </field>
+</record>
+</odoo>
