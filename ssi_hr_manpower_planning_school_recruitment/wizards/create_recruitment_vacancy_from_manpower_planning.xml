@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 OpenSynergy Indonesia
+     Copyright 2026 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record
+        id="create_recruitment_vacancy_from_manpower_planning_view_form"
+        model="ir.ui.view"
+    >
+    <field
+            name="name"
+        >create_recruitment_vacancy_from_manpower_planning - form (school)</field>
+    <field name="model">create_recruitment_vacancy_from_manpower_planning</field>
+    <field
+            name="inherit_id"
+            ref="ssi_hr_manpower_planning_recruitment.create_recruitment_vacancy_from_manpower_planning_view_form"
+        />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='date_start']" position="after">
+                <field name="teaching_job_id" options="{'no_create': True}" />
+            </xpath>
+            <xpath
+                    expr="//field[@name='line_ids']/tree/field[@name='job_id']"
+                    position="before"
+                >
+                <field name="teaching_id" invisible="1" />
+            </xpath>
+            <xpath
+                    expr="//field[@name='line_ids']/tree/field[@name='job_id']"
+                    position="attributes"
+                >
+                <attribute
+                        name="attrs"
+                    >{'required': [('teaching_id', '=', False)]}</attribute>
+            </xpath>
+            <xpath
+                    expr="//field[@name='line_ids']/tree/field[@name='job_id']"
+                    position="after"
+                >
+                <field name="subject_id" />
+                <field name="weekly_hours" />
+                <field name="total_class" />
+            </xpath>
+            <xpath
+                    expr="//field[@name='line_ids']/form/group[@name='line_group_1']/field[@name='job_id']"
+                    position="before"
+                >
+                <field name="teaching_id" invisible="1" />
+            </xpath>
+            <xpath
+                    expr="//field[@name='line_ids']/form/group[@name='line_group_1']/field[@name='job_id']"
+                    position="attributes"
+                >
+                <attribute
+                        name="attrs"
+                    >{'required': [('teaching_id', '=', False)]}</attribute>
+            </xpath>
+            <xpath
+                    expr="//field[@name='line_ids']/form/group[@name='line_group_1']/field[@name='job_id']"
+                    position="after"
+                >
+                <field name="subject_id" />
+                <field name="weekly_hours" />
+                <field name="total_class" />
+            </xpath>
+        </data>
+    </field>
+</record>
+</odoo>

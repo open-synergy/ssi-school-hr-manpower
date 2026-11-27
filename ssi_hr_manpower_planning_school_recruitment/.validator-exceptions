@@ -1,0 +1,5 @@
+# Both wizard classes only EXTEND wizards of ssi_hr_manpower_planning_recruitment,
+# which already owns their ACL (recruitment_vacancy_user_group). A second ACL here
+# would duplicate it; the issue decision is "no new group or ACL".
+module acl-wizard-satu-user-access-tanpa-all-access|create_recruitment_vacancy_from_manpower_planning: tidak ada ACL sama sekali -- extension of the wizard of ssi_hr_manpower_planning_recruitment, which already carries its ACL
+module acl-wizard-satu-user-access-tanpa-all-access|create_recruitment_vacancy_from_manpower_planning_line: tidak ada ACL sama sekali -- extension of the wizard line of ssi_hr_manpower_planning_recruitment, which already carries its ACL
