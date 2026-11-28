@@ -4,7 +4,7 @@
 # pylint: disable=C8101
 {
     "name": "HR - Manpower Planning - School",
-    "version": "14.0.1.6.2",
+    "version": "14.0.1.7.0",
     "website": "https://simetri-sinergi.id",
     "author": "OpenSynergy Indonesia, PT. Simetri Sinergi Indonesia",
     "license": "AGPL-3",
