@@ -1,0 +1,447 @@
+options:
+  auto_refresh: true
+
+setup:
+  steps:
+    - step: "Create grade type"
+      action: "create"
+      model: "school_grade_type"
+      save_as: "grade_type"
+      values:
+        name: "MPP Quantity Grade Type"
+        code: "/"
+        sequence: 10
+    - step: "Create school"
+      action: "create"
+      model: "school"
+      save_as: "school"
+      values:
+        name: "MPP Quantity School"
+        code: "/"
+        grade_type_id: "REC: grade_type.id"
+    - step: "Create academic year"
+      action: "create"
+      model: "school_academic_year"
+      save_as: "year"
+      values:
+        name: "MPP Quantity Academic Year"
+        code: "/"
+        date_start: "2026-07-01"
+        date_end: "2027-06-30"
+    - step: "Create grade X"
+      action: "create"
+      model: "school_grade"
+      save_as: "grade_x"
+      values:
+        name: "MPP Quantity Grade X"
+        code: "/"
+        sequence: 10
+        type_id: "REC: grade_type.id"
+    - step: "Create class X-1"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_1"
+      values:
+        name: "MPP Quantity X-1"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-2"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_2"
+      values:
+        name: "MPP Quantity X-2"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-3"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_3"
+      values:
+        name: "MPP Quantity X-3"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-4"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_4"
+      values:
+        name: "MPP Quantity X-4"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-5"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_5"
+      values:
+        name: "MPP Quantity X-5"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create class X-6"
+      action: "create"
+      model: "school_grade_class"
+      save_as: "class_6"
+      values:
+        name: "MPP Quantity X-6"
+        code: "/"
+        school_id: "REC: school.id"
+        grade_id: "REC: grade_x.id"
+    - step: "Create mathematics taught on grade X"
+      action: "create"
+      model: "school_subject"
+      save_as: "subject_math"
+      values:
+        name: "MPP Quantity Mathematics"
+        code: "/"
+        grade_ids:
+          - - 6
+            - 0
+            - - "REC: grade_x.id"
+    - step: "Create department"
+      action: "create"
+      model: "hr.department"
+      save_as: "department"
+      values:
+        name: "MPP Quantity Department"
+    - step: "Create teacher"
+      action: "create"
+      model: "hr.employee"
+      save_as: "teacher"
+      values:
+        name: "MPP Quantity Teacher"
+    - step: "Create co-teacher"
+      action: "create"
+      model: "hr.employee"
+      save_as: "co_teacher"
+      values:
+        name: "MPP Quantity Co-Teacher"
+    - step: "Create job position of the vice principal"
+      action: "create"
+      model: "hr.job"
+      save_as: "job_vice"
+      values:
+        name: "MPP Quantity Vice Principal Job"
+    - step: "Create structural type given to the vice principal job"
+      action: "create"
+      model: "manpower_planning_assignment_type"
+      save_as: "type_structural"
+      values:
+        name: "MPP Quantity Vice Principal"
+        code: "/"
+        category: "structural"
+        hour_basis: "week"
+        default_hours: 6
+        job_id: "REC: job_vice.id"
+    - step: "Create non-teacher type"
+      action: "create"
+      model: "manpower_planning_assignment_type"
+      save_as: "type_non_teacher"
+      values:
+        name: "MPP Quantity Non Teacher"
+        code: "/"
+        category: "non_teacher"
+        hour_basis: "week"
+        default_hours: 40
+    - step: "Create manpower planning of the school and the year"
+      action: "create"
+      model: "manpower_planning"
+      save_as: "planning"
+      values:
+        department_id: "REC: department.id"
+        school_id: "REC: school.id"
+        academic_year_id: "REC: year.id"
+        date_start: 2026-07-01
+        date_end: 2027-06-30
+
+scenarios:
+  - name: "Quantity - A planning without formation counts teaching and assignment lines"
+    steps:
+      - step: "Teaching line 1"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+          weekly_hours: 4
+          employee_id: "REC: teacher.id"
+      - step: "Teaching line 2"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_2.id"
+          weekly_hours: 4
+          employee_id: "REC: teacher.id"
+      - step: "Teaching line 3"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_3.id"
+          weekly_hours: 4
+          employee_id: "REC: teacher.id"
+      - step: "Teaching line 4"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_4.id"
+          weekly_hours: 4
+          employee_id: "REC: teacher.id"
+      - step: "Teaching line 5"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_5.id"
+          weekly_hours: 4
+          co_employee_id: "REC: co_teacher.id"
+      - step: "Teaching line 6"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_6.id"
+          weekly_hours: 4
+      - step: "Assignment line 1"
+        action: "create"
+        model: "manpower_planning_assignment"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_structural.id"
+          hours: 6
+          employee_id: "REC: teacher.id"
+      - step: "Assignment line 2"
+        action: "create"
+        model: "manpower_planning_assignment"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_structural.id"
+          hours: 6
+          employee_id: "REC: teacher.id"
+      - step: "Assignment line 3"
+        action: "create"
+        model: "manpower_planning_assignment"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_structural.id"
+          hours: 6
+          employee_id: "REC: teacher.id"
+      - step: "Assignment line 4"
+        action: "create"
+        model: "manpower_planning_assignment"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_structural.id"
+          hours: 6
+          employee_id: "REC: teacher.id"
+      - step: "Assignment line 5"
+        action: "create"
+        model: "manpower_planning_assignment"
+        values:
+          planning_id: "REC: planning.id"
+          type_id: "REC: type_structural.id"
+          hours: 6
+      - step: "The header counts 11 needed, 8 filled and 3 vacant"
+        action: "assert"
+        target: "planning"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 11
+          quantity_filled:
+            type: "value"
+            expected: 8
+          quantity_vacant:
+            type: "value"
+            expected: 3
+      - step: "Find the teaching summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["category", "=", "teaching"]
+        save_as: "summary_teaching"
+        expect_count: 1
+      - step: "The teaching summary row counts 6 needed, 4 filled, 2 vacant"
+        action: "assert"
+        target: "summary_teaching"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 6
+          quantity_filled:
+            type: "value"
+            expected: 4
+          quantity_vacant:
+            type: "value"
+            expected: 2
+      - step: "Find the structural summary row"
+        action: "search"
+        model: "manpower_planning_summary"
+        domain:
+          - ["planning_id", "=", "REC: planning.id"]
+          - ["category", "=", "structural"]
+        save_as: "summary_structural"
+        expect_count: 1
+      - step: "The structural summary row counts 5 needed, 4 filled, 1 vacant"
+        action: "assert"
+        target: "summary_structural"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 5
+          quantity_filled:
+            type: "value"
+            expected: 4
+          quantity_vacant:
+            type: "value"
+            expected: 1
+
+  - name: "Quantity - A planning with formation only keeps the formation quantity"
+    steps:
+      - step: "Create a planning with a formation of 3"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning_formation"
+        values:
+          department_id: "REC: department.id"
+          school_id: "REC: school.id"
+          academic_year_id: "REC: year.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          formation_ids:
+            - - 0
+              - 0
+              - job_id: "REC: job_vice.id"
+                quantity: 3
+      - step: "The header is the formation quantity"
+        action: "assert"
+        target: "planning_formation"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 3
+          quantity_filled:
+            type: "value"
+            expected: 0
+          quantity_vacant:
+            type: "value"
+            expected: 3
+
+  - name: "Quantity - A mixed planning follows the filling of a line"
+    steps:
+      - step: "Create a planning with a formation of 2"
+        action: "create"
+        model: "manpower_planning"
+        save_as: "planning_mixed"
+        values:
+          department_id: "REC: department.id"
+          school_id: "REC: school.id"
+          academic_year_id: "REC: year.id"
+          date_start: 2026-07-01
+          date_end: 2027-06-30
+          formation_ids:
+            - - 0
+              - 0
+              - job_id: "REC: job_vice.id"
+                quantity: 2
+      - step: "A filled teaching line"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning_mixed.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_1.id"
+          weekly_hours: 4
+          employee_id: "REC: teacher.id"
+      - step: "A vacant teaching line"
+        action: "create"
+        model: "manpower_planning_teaching"
+        values:
+          planning_id: "REC: planning_mixed.id"
+          subject_id: "REC: subject_math.id"
+          grade_id: "REC: grade_x.id"
+          grade_class_ids:
+            - - 6
+              - 0
+              - - "REC: class_2.id"
+          weekly_hours: 4
+      - step: "A vacant assignment line"
+        action: "create"
+        model: "manpower_planning_assignment"
+        save_as: "line_assignment"
+        values:
+          planning_id: "REC: planning_mixed.id"
+          type_id: "REC: type_structural.id"
+          hours: 6
+      - step: "The header adds the lines to the formation"
+        action: "assert"
+        target: "planning_mixed"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 5
+          quantity_filled:
+            type: "value"
+            expected: 1
+          quantity_vacant:
+            type: "value"
+            expected: 4
+      - step: "Fill the assignment line without saving the header again"
+        action: "write"
+        target: "line_assignment"
+        values:
+          employee_id: "REC: teacher.id"
+      - step: "The filled quantity moves by one"
+        action: "assert"
+        target: "planning_mixed"
+        asserts:
+          quantity_needed:
+            type: "value"
+            expected: 5
+          quantity_filled:
+            type: "value"
+            expected: 2
+          quantity_vacant:
+            type: "value"
+            expected: 3
