@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 import io
+import re
 import zipfile
 
 from odoo_yaml_test import YamlTransactionCase
@@ -11,6 +12,10 @@ from odoo.tests import tagged
 
 REPORT_NAME = "report.ssi_hr_manpower_planning.manpower_planning_summary"
 XLSX_NAME = "report.ssi_hr_manpower_planning.manpower_planning_summary_xlsx"
+ACTION_HTML = "ssi_hr_manpower_planning.action_report_manpower_planning_summary_html"
+ACTION_PDF = "ssi_hr_manpower_planning.action_report_manpower_planning_summary_pdf"
+TEACHING_RE = re.compile(r"<h5[^>]*>\s*(?:Teaching|Pengajaran)\s*</h5>")
+CONTRACT_RE = re.compile(r"<h5[^>]*>\s*(?:Contract Review|Tinjauan Kontrak)\s*</h5>")
 
 
 @tagged("post_install", "-at_install")
@@ -342,3 +347,89 @@ class TestManpowerPlanningSchoolReport(YamlTransactionCase):
                 "_write_xlsx_contract",
             ],
         )
+
+    def _install_lang(self, code):
+        """Install a language with its translations loaded.
+
+        :param code: language code to install, such as ``id_ID``
+        """
+        wizard = self.env["base.language.install"].create(
+            {"lang": code, "overwrite": True}
+        )
+        wizard.lang_install()
+
+    def _render_actions(self, planning, lang=None):
+        """Render the HTML and PDF actions of a planning.
+
+        In test mode the PDF action falls back to the HTML renderer,
+        so no wkhtmltopdf is needed.
+
+        :param planning: ``manpower_planning`` record to print
+        :param lang: language code of the render context, if any
+        :return: list of the two rendered HTML strings
+        """
+        result = []
+        for xmlid, method in (
+            (ACTION_HTML, "_render_qweb_html"),
+            (ACTION_PDF, "_render_qweb_pdf"),
+        ):
+            report = self.env.ref(xmlid)
+            if lang:
+                report = report.with_context(lang=lang)
+            content, content_type = getattr(report, method)(planning.ids)
+            self.assertIn(content_type, ("html", "pdf"))
+            result.append(content.decode("utf-8"))
+        return result
+
+    def test_reports_render_with_school_in_indonesian(self):
+        """Assert both actions render the school planning in id_ID.
+
+        Pure Python — trigger P8 (L-01: ``call`` discards the rendered
+        bytes, so the HTML can't be asserted from YAML; L-19: the base
+        class is locked to ``TransactionCase``).
+        """
+        self._install_lang("id_ID")
+        planning = self._create_planning()
+        self._add_teaching(planning, self.teacher, self.co_teacher)
+        self._add_assignment(planning, self.type_structural, self.teacher)
+        for html in self._render_actions(planning, lang="id_ID"):
+            self.assertIn("Tinjauan Kontrak", html)
+            teaching = TEACHING_RE.search(html)
+            contract = CONTRACT_RE.search(html)
+            self.assertTrue(teaching)
+            self.assertTrue(contract)
+            self.assertLess(teaching.start(), contract.start())
+
+    def test_reports_render_without_school_in_indonesian(self):
+        """Assert both actions render the base planning in id_ID.
+
+        Pure Python — trigger P8 (L-01: ``call`` discards the rendered
+        bytes, so the HTML can't be asserted from YAML; L-19: the base
+        class is locked to ``TransactionCase``).
+        """
+        self._install_lang("id_ID")
+        planning = self._create_planning(with_school=False)
+        for html in self._render_actions(planning, lang="id_ID"):
+            self.assertIn("Tinjauan Kontrak", html)
+            self.assertFalse(TEACHING_RE.search(html))
+
+    def test_reports_render_in_english(self):
+        """Assert both actions render school and base plannings in en_US.
+
+        Pure Python — trigger P8 (L-01: ``call`` discards the rendered
+        bytes, so the HTML can't be asserted from YAML; L-19: the base
+        class is locked to ``TransactionCase``).
+        """
+        school = self._create_planning()
+        self._add_teaching(school, self.teacher, self.co_teacher)
+        self._add_assignment(school, self.type_structural, self.teacher)
+        for html in self._render_actions(school):
+            self.assertIn("Contract Review", html)
+            teaching = TEACHING_RE.search(html)
+            contract = CONTRACT_RE.search(html)
+            self.assertTrue(teaching)
+            self.assertLess(teaching.start(), contract.start())
+        base = self._create_planning(with_school=False)
+        for html in self._render_actions(base):
+            self.assertIn("Contract Review", html)
+            self.assertFalse(TEACHING_RE.search(html))
