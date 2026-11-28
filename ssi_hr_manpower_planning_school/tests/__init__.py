@@ -10,6 +10,7 @@ from . import test_import_teaching_assignment  # noqa: F401
 from . import test_manpower_planning_assignment  # noqa: F401
 from . import test_manpower_planning_workload  # noqa: F401
 from . import test_manpower_planning_summary  # noqa: F401
+from . import test_manpower_planning_quantity  # noqa: F401
 from . import test_manpower_planning_report  # noqa: F401
 from . import test_ui_manpower_planning  # noqa: F401
 from . import test_ui_manpower_planning_assignment_type  # noqa: F401

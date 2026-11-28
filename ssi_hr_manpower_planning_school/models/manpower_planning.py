@@ -78,6 +78,54 @@ class ManpowerPlanning(models.Model):
         help="Teaching and additional hours recap per employee.",
     )
 
+    quantity_needed = fields.Integer(
+        help="Total manpower needed, the sum of all formation lines and "
+        "of all teaching and additional assignment lines. A co-teacher "
+        "is not counted as a position.",
+    )
+
+    @api.depends(
+        "teaching_ids",
+        "teaching_ids.employee_id",
+        "assignment_ids",
+        "assignment_ids.employee_id",
+    )
+    def _compute_quantity_needed(self):
+        """Add the school positions to the manpower needed.
+
+        Every teaching line and every additional assignment line is one
+        position, the same rule as ``_get_source_queries`` of the
+        summary. A co-teacher is not a position. The formation part is
+        computed by the parent.
+        """
+        super()._compute_quantity_needed()
+        for record in self:
+            result = record.quantity_needed
+            result += len(record.teaching_ids)
+            result += len(record.assignment_ids)
+            record.quantity_needed = result
+
+    @api.depends(
+        "teaching_ids",
+        "teaching_ids.employee_id",
+        "assignment_ids",
+        "assignment_ids.employee_id",
+    )
+    def _compute_quantity_filled(self):
+        """Add the filled school positions to the manpower filled.
+
+        A teaching line or an additional assignment line is filled when
+        it has an employee, the same rule as ``_get_source_queries`` of
+        the summary. A co-teacher is not a position. The formation part
+        is computed by the parent.
+        """
+        super()._compute_quantity_filled()
+        for record in self:
+            result = record.quantity_filled
+            result += len(record.teaching_ids.filtered("employee_id"))
+            result += len(record.assignment_ids.filtered("employee_id"))
+            record.quantity_filled = result
+
     @api.onchange("academic_year_id")
     def onchange_date_start(self):
         self.date_start = False
