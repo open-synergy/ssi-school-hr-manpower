@@ -903,6 +903,11 @@ msgid "Position"
 msgstr ""
 
 #. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,field_description:ssi_hr_manpower_planning_school.field_manpower_planning__quantity_needed
+msgid "Quantity Needed"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
 #: model:ir.model.fields.selection,name:ssi_hr_manpower_planning_school.selection__manpower_planning_workload__state__reject
 msgid "Rejected"
 msgstr ""
@@ -1118,6 +1123,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:ssi_hr_manpower_planning_school.manpower_planning_summary_content_school
 #, python-format
 msgid "Total Weekly Hours"
+msgstr ""
+
+#. module: ssi_hr_manpower_planning_school
+#: model:ir.model.fields,help:ssi_hr_manpower_planning_school.field_manpower_planning__quantity_needed
+msgid ""
+"Total manpower needed, the sum of all formation lines and of all teaching "
+"and additional assignment lines. A co-teacher is not counted as a position."
 msgstr ""
 
 #. module: ssi_hr_manpower_planning_school
