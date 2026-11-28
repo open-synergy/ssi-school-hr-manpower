@@ -158,9 +158,15 @@ odoo.define("ssi_hr_manpower_planning_school.manpower_planning_tour", function (
                     in_modal: false,
                 },
                 {
+                    // The teaching line counts as one needed position, so
+                    // the header answers the onchange of the line with 1.
+                    // That answer re-renders the list and would close the
+                    // dropdown of the next input, so it gates it.
                     content: "Fill in the Classes",
                     trigger:
                         ".o_selected_row .o_field_many2manytags[name='grade_class_ids'] input",
+                    extra_trigger:
+                        ".o_form_view .o_field_widget[name='quantity_needed']:contains(1)",
                     run: "text Tour MPPS Class",
                 },
                 {
@@ -187,6 +193,16 @@ odoo.define("ssi_hr_manpower_planning_school.manpower_planning_tour", function (
                     trigger:
                         ".ui-autocomplete:visible .ui-menu-item a:contains(Tour MPPS Teacher)",
                     in_modal: false,
+                },
+                {
+                    // The teacher fills the line: the header answers the
+                    // onchange with 1 filled before the tab is left.
+                    content: "Header counts the teaching line as filled",
+                    trigger:
+                        ".o_form_view .o_field_widget[name='quantity_filled']:contains(1)",
+                    run: function () {
+                        // Assertion only.
+                    },
                 },
 
                 // Additional Fields -- Additional Assignments tab, one line.
@@ -223,9 +239,14 @@ odoo.define("ssi_hr_manpower_planning_school.manpower_planning_tour", function (
                     },
                 },
                 {
+                    // The header counts the assignment line too, so it
+                    // answers the onchange of the line with 2 needed and 1
+                    // filled before the next dropdown can stay open.
                     content: "Fill in the Employee",
                     trigger:
                         ".o_selected_row .o_field_many2one[name='employee_id'] input",
+                    extra_trigger:
+                        ".o_form_view .o_field_widget[name='quantity_needed']:contains(2)",
                     run: "text Tour MPPS Teacher",
                 },
                 {
